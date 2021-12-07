@@ -1,7 +1,7 @@
 import 'package:flutter_templete/http/core/hi_net_adapter.dart';
 import 'package:flutter_templete/http/core/hi_net_error.dart';
+import 'package:flutter_templete/http/dio/dio_adapter.dart';
 import 'package:flutter_templete/http/request/base_request.dart';
-import 'package:flutter_templete/http/test/mock_adapter.dart';
 
 class HiNet {
   HiNet._();
@@ -41,9 +41,9 @@ class HiNet {
       case 401:
         throw NeedLogin();
       case 403:
-        throw NeedAuth(result.toString(), data: request);
+        throw NeedAuth(result.toString(), data: result);
       default:
-        throw HiNetError(statusCode, result.toString(), data: request);
+        throw HiNetError(statusCode, result.toString(), data: result);
     }
   }
 
@@ -56,8 +56,13 @@ class HiNet {
     //   'statusCode': 200,
     //   'data': {'code': 0, 'message': 'success'}
     // });
+
     // 使用 mock 发送请求
-    HiNetAdapter adapter = MockAdapter();
+    // HiNetAdapter adapter = MockAdapter();
+    // return adapter.send(request);
+
+    // 使用 Dio 发送请求
+    HiNetAdapter adapter = DioAdapter();
     return adapter.send(request);
   }
 
