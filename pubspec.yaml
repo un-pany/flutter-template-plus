@@ -1,0 +1,32 @@
+name: flutter_templete
+description: flutter_templete
+
+publish_to: 'none'
+
+version: 1.0.0+1 # 版本号
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations: # 本地化
+    sdk: flutter
+  shared_preferences: ^2.0.9 # 官方推荐的数据持久化包
+  dio: ^4.0.4 # http
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter: # flutter 相关的配置选项
+  uses-material-design: true # 默认的 Material Design 字体图标
+
+  assets:
+    - static/images/login/logo.png # 静态图片
+
+  fonts:
+    - family: iconfont
+      fonts:
+        - asset: static/icons/iconfont.ttf  # 阿里矢量图标库提取的字体图标
