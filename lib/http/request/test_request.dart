@@ -1,6 +1,6 @@
 import 'package:flutter_templete/http/request/base_request.dart';
 
-class TestApi extends BaseRequest {
+class TestRequest extends BaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;

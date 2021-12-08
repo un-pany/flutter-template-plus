@@ -1,6 +1,6 @@
 import 'package:flutter_templete/http/core/hi_net_adapter.dart';
 import 'package:flutter_templete/http/core/hi_net_error.dart';
-import 'package:flutter_templete/http/dio/dio_adapter.dart';
+import 'package:flutter_templete/http/adapter/dio_adapter.dart';
 import 'package:flutter_templete/http/request/base_request.dart';
 
 class HiNet {
