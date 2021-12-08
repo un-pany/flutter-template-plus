@@ -5,10 +5,13 @@ import 'package:flutter_templete/http/request/base_request.dart';
 
 class HiNet {
   HiNet._();
-  // 饿汉模式
-  static HiNet _instance = HiNet._();
+  // 懒汉模式
+  static HiNet? _instance;
   static HiNet getInstance() {
-    return _instance;
+    if (_instance == null) {
+      _instance = HiNet._();
+    }
+    return _instance!;
   }
 
   Future fire(BaseRequest request) async {
