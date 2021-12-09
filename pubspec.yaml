@@ -29,4 +29,4 @@ flutter: # flutter 相关的配置选项
   fonts:
     - family: iconfont
       fonts:
-        - asset: static/icons/iconfont.ttf  # 阿里矢量图标库提取的字体图标
+        - asset: static/icons/iconfont.ttf # 阿里矢量图标库提取的字体图标
