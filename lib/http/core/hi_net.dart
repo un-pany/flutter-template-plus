@@ -38,9 +38,9 @@ class HiNet {
     }
 
     var result = response?.data;
-    printLog(result);
+    printLog('请求结果:$result');
 
-    // 解析状态码
+    // 解析 http 状态码
     var statusCode = response?.statusCode;
     switch (statusCode) {
       case 200:
@@ -50,7 +50,7 @@ class HiNet {
       case 403:
         throw NeedAuth(result.toString(), data: result);
       default:
-        throw HiNetError(statusCode, result.toString(), data: result);
+        throw HiNetError(statusCode ?? -1, result.toString(), data: result);
     }
   }
 

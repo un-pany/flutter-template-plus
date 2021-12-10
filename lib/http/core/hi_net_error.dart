@@ -1,9 +1,8 @@
 /// 网络异常统一格式类
 class HiNetError implements Exception {
   HiNetError(this.code, this.message, {this.data});
-
   // 异常码
-  final int? code;
+  final int code;
   // 异常消息
   final String message;
   // 异常数据

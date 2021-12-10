@@ -8,7 +8,9 @@ class MockAdapter extends HiNetAdapter {
   Future<HiNetResponse<T>> send<T>(BaseRequest request) {
     return Future<HiNetResponse<T>>.delayed(Duration(milliseconds: 1000), () {
       return HiNetResponse(
-          data: {'code': 0, 'message': 'success'} as T, statusCode: 403);
+        data: {'code': 0, 'message': 'success'} as T,
+        statusCode: 403,
+      );
     });
   }
 }
