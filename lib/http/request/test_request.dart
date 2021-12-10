@@ -1,4 +1,4 @@
-import 'package:flutter_templete/http/request/base_request.dart';
+import 'package:flutter_templete/http/core/base_request.dart';
 
 class TestRequest extends BaseRequest {
   @override

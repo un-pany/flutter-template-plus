@@ -1,5 +1,5 @@
 import 'package:flutter_templete/http/core/hi_net_adapter.dart';
-import 'package:flutter_templete/http/request/base_request.dart';
+import 'package:flutter_templete/http/core/base_request.dart';
 
 /// 测试适配器，mock数据
 
