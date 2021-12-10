@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// 缓存管理类
-
+/// 缓存管理类（基于 shared_preferences）
 class HiCache {
   static HiCache? _instance;
   SharedPreferences? prefs;
@@ -14,7 +13,8 @@ class HiCache {
     this.prefs = prefs;
   }
 
-  // 预初始化，防止在使用 get 时，prefs 还未完成初始化
+  // 预初始化，防止在使用时，prefs 还未完成初始化
+  // 可以在全局（如 main.dart）先执行 preInit 方法
   static Future<HiCache> preInit() async {
     if (_instance == null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,7 +36,7 @@ class HiCache {
     }
   }
 
-  // 常用方法
+  // 常用 set 方法
   setString(String key, String value) {
     prefs?.setString(key, value);
   }
@@ -61,6 +61,7 @@ class HiCache {
     prefs?.remove(key);
   }
 
+  // get 方法
   T? get<T>(String key) {
     var result = prefs?.get(key);
     if (result != null) {
