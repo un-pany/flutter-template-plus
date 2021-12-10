@@ -1,9 +1,9 @@
 import 'package:flutter_templete/http/core/base_request.dart';
 
-class TestRequest extends BaseRequest {
+class LoginRequest extends BaseRequest {
   @override
   HttpMethod httpMethod() {
-    return HttpMethod.GET;
+    return HttpMethod.POST;
   }
 
   @override
@@ -13,6 +13,6 @@ class TestRequest extends BaseRequest {
 
   @override
   String path() {
-    return 'uapi/test/test';
+    return '/mock-api/v1/users/login';
   }
 }

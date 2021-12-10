@@ -21,7 +21,7 @@ abstract class BaseRequest {
 
   // 默认域名
   String authority() {
-    return 'api.devio.org';
+    return 'vue-typescript-admin-mock-server-armour.vercel.app';
   }
 
   // 生成具体的 url
