@@ -1,11 +1,16 @@
+/// RESTful 请求
 enum HttpMethod { GET, POST, DELETE, PUT }
 
 /// 基础请求
 abstract class BaseRequest {
   // path 参数
   var pathParams;
+  // 默认查询参数
+  Map<String, String> params = Map();
   // 是否为 https，默认为 true
   bool useHttps = true;
+  // 默认 header 数据
+  Map<String, String> header = Map();
 
   // 设置请求方法
   HttpMethod httpMethod();
@@ -37,20 +42,16 @@ abstract class BaseRequest {
     } else {
       uri = Uri.http(authority(), pathStr, params);
     }
-    print('url:${uri.toString()}');
+    // print('url:${uri.toString()}');
     return uri.toString();
   }
 
-  // 默认查询参数
-  Map<String, String> params = Map();
   // 添加查询参数
   BaseRequest add(String k, Object v) {
     params[k] = v.toString();
     return this;
   }
 
-  // 默认 header 数据
-  Map<String, String> header = Map();
   // 添加 header 数据
   BaseRequest addHeader(String k, Object v) {
     params[k] = v.toString();

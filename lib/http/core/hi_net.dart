@@ -3,6 +3,10 @@ import 'package:flutter_templete/http/core/hi_net_error.dart';
 import 'package:flutter_templete/http/adapter/dio_adapter.dart';
 import 'package:flutter_templete/http/request/base_request.dart';
 
+/// 支持第三方网络库插拔设计（当前架构选用 Dio），且不干扰业务层
+/// 简洁易用，基于配置进行请求
+/// Adapter 设计，扩展性强
+/// 统一异常和返回处理
 class HiNet {
   HiNet._();
   // 懒汉模式
@@ -51,18 +55,10 @@ class HiNet {
   }
 
   Future<dynamic> send<T>(BaseRequest request) async {
-    printLog('url:${request.url()}');
-    // printLog('method:${request.httpMethod()}');
-    // request.addHeader('token', '123');
-    // printLog('header:${request.header}');
-    // return Future.value({
-    //   'statusCode': 200,
-    //   'data': {'code': 0, 'message': 'success'}
-    // });
+    // printLog('url:${request.url()}');
 
     // 使用 mock 发送请求
     // HiNetAdapter adapter = MockAdapter();
-    // return adapter.send(request);
 
     // 使用 Dio 发送请求
     HiNetAdapter adapter = DioAdapter();
