@@ -20,11 +20,11 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             LoginInput(
               '请输入用户名',
-              Image.asset('static/images/login/user.png'),
+              Icon(Icons.perm_identity),
             ),
             LoginInput(
               '请输入密码',
-              Image.asset('static/images/login/password.png'),
+              Icon(Icons.lock_outline),
               obscureText: true,
             ),
             ElevatedButton(
