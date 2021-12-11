@@ -19,22 +19,13 @@ class _LoginPageState extends State<LoginPage> {
         child: ListView(
           children: [
             LoginInput(
-              '用户名',
               '请输入用户名',
-              onChanged: (text) {
-                print(text);
-              },
+              Image.asset('static/images/login/user.png'),
             ),
             LoginInput(
-              '密码',
               '请输入密码',
+              Image.asset('static/images/login/password.png'),
               obscureText: true,
-              onChanged: (text) {
-                print(text);
-              },
-              focusChanged: (focus) {
-                print(focus);
-              },
             ),
             ElevatedButton(
               child: Text("发送请求"),

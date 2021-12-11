@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// 主题色
-const MaterialColor primary = const MaterialColor(
-  0xfffb7299,
-  const <int, Color>{
-    50: const Color(0xffff9db5),
-  },
-);
+const MaterialColor primaryColor = Colors.indigo;
 
 // class MyColor {
 //   static const Color red = Color(0xFFFF4759);

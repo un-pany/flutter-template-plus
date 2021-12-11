@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_templete/common/color.dart';
 import 'package:flutter_templete/http/dao/login_dao.dart';
 import 'package:flutter_templete/pages/login/index.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'flutter_templete',
       theme: ThemeData(
-        primarySwatch: Colors.indigo, // 主题
+        primarySwatch: primaryColor, // 主题
       ),
       initialRoute: "home",
       onGenerateRoute: onGenerateRoute,
