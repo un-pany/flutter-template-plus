@@ -1,29 +1,29 @@
-import 'package:flutter_templete/http/core/hi_net_adapter.dart';
-import 'package:flutter_templete/http/core/hi_net_error.dart';
+import 'package:flutter_templete/http/core/my_net_adapter.dart';
+import 'package:flutter_templete/http/core/my_net_error.dart';
 import 'package:flutter_templete/http/adapter/dio_adapter.dart';
-import 'package:flutter_templete/http/core/base_request.dart';
+import 'package:flutter_templete/http/core/my_base_request.dart';
 
 /// 支持第三方网络库插拔设计（当前架构选用 Dio），且不干扰业务层
 /// 简洁易用，基于配置进行请求
 /// Adapter 设计，扩展性强
 /// 统一异常和返回处理
-class HiNet {
-  HiNet._();
+class MyNet {
+  MyNet._();
   // 懒汉模式
-  static HiNet? _instance;
-  static HiNet getInstance() {
+  static MyNet? _instance;
+  static MyNet getInstance() {
     if (_instance == null) {
-      _instance = HiNet._();
+      _instance = MyNet._();
     }
     return _instance!;
   }
 
-  Future fire(BaseRequest request) async {
-    HiNetResponse? response;
+  Future fire(MyBaseRequest request) async {
+    MyNetResponse? response;
     var error;
     try {
       response = await send(request);
-    } on HiNetError catch (e) {
+    } on MyNetError catch (e) {
       error = e;
       response = e.data;
       printLog(e.message);
@@ -51,18 +51,18 @@ class HiNet {
       case 403:
         throw NeedAuth(result.toString(), data: result);
       default:
-        throw HiNetError(statusCode ?? -1, result.toString(), data: result);
+        throw MyNetError(statusCode ?? -1, result.toString(), data: result);
     }
   }
 
-  Future<dynamic> send<T>(BaseRequest request) async {
+  Future<dynamic> send<T>(MyBaseRequest request) async {
     // printLog('url:${request.url()}');
 
     // 使用 mock 发送请求
-    // HiNetAdapter adapter = MockAdapter();
+    // MyNetAdapter adapter = MockAdapter();
 
     // 使用 Dio 发送请求
-    HiNetAdapter adapter = DioAdapter();
+    MyNetAdapter adapter = DioAdapter();
     return adapter.send(request);
   }
 

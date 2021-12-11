@@ -4,7 +4,7 @@ import 'package:flutter_templete/http/dao/login_dao.dart';
 enum HttpMethod { GET, POST, DELETE, PUT }
 
 /// 基础请求
-abstract class BaseRequest {
+abstract class MyBaseRequest {
   // path 参数
   var pathParams;
   // 默认查询参数
@@ -55,13 +55,13 @@ abstract class BaseRequest {
   }
 
   // 添加查询参数
-  BaseRequest add(String k, Object v) {
+  MyBaseRequest add(String k, Object v) {
     params[k] = v.toString();
     return this;
   }
 
   // 添加 header 数据
-  BaseRequest addHeader(String k, Object v) {
+  MyBaseRequest addHeader(String k, Object v) {
     header[k] = v.toString();
     return this;
   }

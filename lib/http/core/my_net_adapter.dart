@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'package:flutter_templete/http/core/base_request.dart';
+import 'package:flutter_templete/http/core/my_base_request.dart';
 
 /// 网络请求抽象类
-abstract class HiNetAdapter {
-  Future<HiNetResponse<T>> send<T>(BaseRequest request);
+abstract class MyNetAdapter {
+  Future<MyNetResponse<T>> send<T>(MyBaseRequest request);
 }
 
 /// 统一网络返回格式
-class HiNetResponse<T> {
-  HiNetResponse({
+class MyNetResponse<T> {
+  MyNetResponse({
     this.data,
     this.request,
     this.statusCode,
@@ -18,7 +18,7 @@ class HiNetResponse<T> {
 
   T? data;
   // 请求
-  BaseRequest? request;
+  MyBaseRequest? request;
   // http 状态码
   int? statusCode;
   // http Message

@@ -1,31 +1,31 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// 缓存管理类（基于 shared_preferences）
-class HiCache {
-  static HiCache? _instance;
+class MyCache {
+  static MyCache? _instance;
   SharedPreferences? prefs;
 
-  HiCache._() {
+  MyCache._() {
     init();
   }
 
-  HiCache._pre(SharedPreferences prefs) {
+  MyCache._pre(SharedPreferences prefs) {
     this.prefs = prefs;
   }
 
   // 预初始化，防止在使用时，prefs 还未完成初始化
   // 可以在全局（如 main.dart）先执行 preInit 方法
-  static Future<HiCache> preInit() async {
+  static Future<MyCache> preInit() async {
     if (_instance == null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      _instance = HiCache._pre(prefs);
+      _instance = MyCache._pre(prefs);
     }
     return _instance!;
   }
 
-  static HiCache getInstance() {
+  static MyCache getInstance() {
     if (_instance == null) {
-      _instance = HiCache._();
+      _instance = MyCache._();
     }
     return _instance!;
   }
