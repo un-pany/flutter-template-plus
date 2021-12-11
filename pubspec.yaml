@@ -24,8 +24,7 @@ flutter: # flutter 相关的配置选项
   uses-material-design: true # 默认的 Material Design 字体图标
 
   assets: # 静态资源
-    - static/images/login/user.png
-    - static/images/login/password.png
+    - static/images/login/logo.png
 
   fonts:
     - family: iconfont
