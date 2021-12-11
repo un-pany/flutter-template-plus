@@ -8,14 +8,6 @@ abstract class MyNetAdapter {
 
 /// 统一网络返回格式
 class MyNetResponse<T> {
-  MyNetResponse({
-    this.data,
-    this.request,
-    this.statusCode,
-    this.statusMessage,
-    this.extra,
-  });
-
   T? data;
   // 请求
   MyBaseRequest? request;
@@ -25,6 +17,14 @@ class MyNetResponse<T> {
   String? statusMessage;
   // 其他
   dynamic extra;
+
+  MyNetResponse({
+    this.data,
+    this.request,
+    this.statusCode,
+    this.statusMessage,
+    this.extra,
+  });
 
   @override
   String toString() {
