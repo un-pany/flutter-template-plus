@@ -1,3 +1,5 @@
+import 'package:flutter_templete/http/dao/login_dao.dart';
+
 /// RESTful 请求
 enum HttpMethod { GET, POST, DELETE, PUT }
 
@@ -42,6 +44,12 @@ abstract class BaseRequest {
     } else {
       uri = Uri.http(authority(), pathStr, params);
     }
+    // 设置 token
+    var token = LoginDao.getToken();
+    if (needLogin() && token != null) {
+      // 给需要登录的接口携带登录令牌
+      addHeader(LoginDao.Token, token);
+    }
     // print('url:${uri.toString()}');
     return uri.toString();
   }
@@ -54,7 +62,7 @@ abstract class BaseRequest {
 
   // 添加 header 数据
   BaseRequest addHeader(String k, Object v) {
-    params[k] = v.toString();
+    header[k] = v.toString();
     return this;
   }
 }

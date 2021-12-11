@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_templete/http/dao/login_dao.dart';
 import 'package:flutter_templete/pages/login/index.dart';
-import 'package:flutter_templete/utils/sp.dart';
 
 void main() {
   // 网格线
@@ -56,8 +56,8 @@ class MyApp extends StatelessWidget {
 
   // 路由拦截器
   String? routeBeforeHook(RouteSettings settings) {
-    final token = SP.getToken() ?? '';
-    if (token != '') {
+    final token = LoginDao.getToken();
+    if (token != null) {
       if (settings.name == 'login') {
         return 'home';
       }

@@ -44,6 +44,7 @@ class HiNet {
     var statusCode = response?.statusCode;
     switch (statusCode) {
       case 200:
+        // 当 'http状态码' == 200 时，根据具体的业务，还可以在这里统一解析'业务状态码'，即 response?.data['code']，而不是直接 return result;
         return result;
       case 401:
         throw NeedLogin();
