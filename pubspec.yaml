@@ -13,8 +13,9 @@ dependencies:
     sdk: flutter
   flutter_localizations: # 本地化
     sdk: flutter
-  shared_preferences: ^2.0.9 # 官方推荐的数据持久化包
+  shared_preferences: ^2.0.9 # 数据持久化
   dio: ^4.0.4 # http
+  flutter_easyloading: ^3.0.3 # loading 遮盖层
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_templete/http/core/my_net_error.dart';
 import 'package:flutter_templete/http/dao/login_dao.dart';
 import 'package:flutter_templete/widgets/login_input.dart';
@@ -108,11 +109,9 @@ class _LoginPageState extends State<LoginPage> {
 
   // 登录按钮
   Widget _button() {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 80,
-        right: 80,
-      ),
+    return FractionallySizedBox(
+      // 子元素占父元素的宽度比例
+      widthFactor: 0.6,
       child: SizedBox(
         height: 45,
         child: ElevatedButton(
@@ -124,18 +123,19 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () async {
             if ((_formKey.currentState as FormState).validate()) {
               // 验证通过提交数据
+              EasyLoading.show();
               try {
-                var res = await LoginDao.login(
+                await LoginDao.login(
                   _userController.text.trim(),
                   _passwordController.text.trim(),
                 );
-                print('page层收到的数据:$res');
+                EasyLoading.dismiss();
               } on NeedLogin catch (e) {
-                print(e);
+                EasyLoading.showError(e.message);
               } on NeedAuth catch (e) {
-                print(e);
+                EasyLoading.showError(e.message);
               } on MyNetError catch (e) {
-                print(e);
+                EasyLoading.showError(e.message);
               }
             }
           },

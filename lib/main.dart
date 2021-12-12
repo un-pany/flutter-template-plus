@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_templete/common/color.dart';
 import 'package:flutter_templete/http/dao/login_dao.dart';
@@ -18,6 +19,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 配置 EasyLoading 单例
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..userInteractions = false // 期间是否允许用户操作
+      ..dismissOnTap = false // 点击背景是否关闭
+      ..maskType = EasyLoadingMaskType.black; // 遮蔽层
+
     return MaterialApp(
       title: 'flutter_templete',
       theme: ThemeData(
@@ -31,6 +39,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [Locale('zh', 'CH')],
+      builder: EasyLoading.init(),
     );
   }
 

@@ -26,11 +26,11 @@ class MyNet {
     } on MyNetError catch (e) {
       error = e;
       response = e.data;
-      printLog(e.message);
+      printLog('异常信息:${e.message}');
     } catch (e) {
       // 其他异常
       error = e;
-      printLog(e);
+      printLog('其他异常:$e');
     }
 
     if (response == null) {
@@ -67,6 +67,6 @@ class MyNet {
   }
 
   void printLog(log) {
-    print('hi_net:${log.toString()}');
+    print('my_net:${log.toString()}');
   }
 }
