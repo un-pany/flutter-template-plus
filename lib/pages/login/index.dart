@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         child: ListView(
           children: [
             Image.asset(
-              'static/images/login/logo.png',
+              'assets/images/login/logo.png',
               width: 200,
               height: 200,
             ),
