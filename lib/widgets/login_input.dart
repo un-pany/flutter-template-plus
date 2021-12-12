@@ -47,7 +47,7 @@ class LoginInput extends StatelessWidget {
         border: OutlineInputBorder(
           // 圆角形
           borderRadius: BorderRadius.all(
-            Radius.circular(8),
+            Radius.circular(32),
           ),
           // 去除边框
           borderSide: BorderSide.none,

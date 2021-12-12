@@ -117,6 +117,10 @@ class _LoginPageState extends State<LoginPage> {
         height: 45,
         child: ElevatedButton(
           child: Text("登录"),
+          style: ElevatedButton.styleFrom(
+            // 圆角
+            shape: StadiumBorder(),
+          ),
           onPressed: () async {
             if ((_formKey.currentState as FormState).validate()) {
               // 验证通过提交数据
