@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_templete/common/color.dart';
 import 'package:flutter_templete/http/dao/login_dao.dart';
-import 'package:flutter_templete/pages/login/index.dart';
+import 'package:flutter_templete/pages/login_page.dart';
 
 void main() {
   // 网格线
