@@ -113,7 +113,15 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     }
     var page;
     if (routeStatus == RouteStatus.login) {
-      page = pageWrap(LoginPage());
+      page = pageWrap(
+        LoginPage(
+          onJumpToHome: () {
+            _routeStatus = RouteStatus.home;
+            // notifyListeners 通知数据变化，和 setState 效果一样
+            notifyListeners();
+          },
+        ),
+      );
     } else if (routeStatus == RouteStatus.home) {
       // 跳转首页时将栈中其它页面进行出栈，因为首页不可回退
       pages.clear();
@@ -121,7 +129,6 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
         HomePage(
           onJumpToDetail: (id) {
             this.id = id;
-            // notifyListeners 通知数据变化，和 setState 效果一样
             notifyListeners();
           },
         ),
@@ -134,17 +141,34 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     pages = tempPages;
 
     // 返回整个路由堆栈信息
-    return Navigator(
-      key: navigatorKey,
-      pages: pages,
-      // 返回上一页时触犯（在这里可以控制是否返回）
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) {
-          // 不可以返回
-          return false;
-        }
-        return true;
-      },
+    return WillPopScope(
+      // fix: Android 物理返回键，无法返回上一页问题 @https://github.com/flutter/flutter/issues/66349
+      // WillPopScope + onWillPop 就是解决这个问题的关键
+      onWillPop: () async =>
+          !(await navigatorKey.currentState?.maybePop() ?? false),
+      child: Navigator(
+        key: navigatorKey,
+        pages: pages,
+        // 返回上一页时触犯（在这里可以控制是否返回）
+        onPopPage: (route, result) {
+          if (route.settings is MaterialPage) {
+            // login 页未登录时，做一下返回拦截（是防御性编程，该脚手架其实不会出现从 login 页返回其他需要登录的页面的情况）
+            if ((route.settings as MaterialPage).child is LoginPage) {
+              if (!hasLogin) {
+                EasyLoading.showInfo("请先登录");
+                return false;
+              }
+            }
+          }
+          // 执行返回操作
+          if (!route.didPop(result)) {
+            // 不可以返回
+            return false;
+          }
+          pages.removeLast();
+          return true;
+        },
+      ),
     );
   }
 

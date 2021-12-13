@@ -5,7 +5,10 @@ import 'package:flutter_templete/http/dao/login_dao.dart';
 import 'package:flutter_templete/widgets/login_input.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  // ValueChanged 和 VoidCallback 都代表回调，前者有参数，后者没有参数
+  final VoidCallback onJumpToHome;
+
+  LoginPage({Key? key, required this.onJumpToHome}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -130,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   _passwordController.text.trim(),
                 );
                 EasyLoading.dismiss();
+                widget.onJumpToHome();
               } on NeedLogin catch (e) {
                 EasyLoading.showError(e.message);
               } on NeedAuth catch (e) {

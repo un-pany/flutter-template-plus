@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  // ValueChanged 和 VoidCallback 都代表回调，前者有参数，后者没有参数
   final ValueChanged onJumpToDetail;
 
   const HomePage({Key? key, required this.onJumpToDetail}) : super(key: key);
