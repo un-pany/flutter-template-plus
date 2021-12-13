@@ -55,3 +55,11 @@ Flutter 脚手架
 该脚手架采用第二种方案
 
 PS: JSON <——> Map <——> Dart Model 三者之间的转化是常用的技巧
+
+## 关于路由
+
+1. 官方的 Navigator 1.0 （还可以继续使用）
+2. 官方的 Navigator 2.0 （Flutter 1.22 推出）
+3. 三方插件 fluro
+
+该脚手架采用第二种方案，并对其封装
