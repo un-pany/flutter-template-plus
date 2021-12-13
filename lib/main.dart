@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       // 进行项目的预初始化
       future: MyCache.preInit(),
       builder: (BuildContext context, AsyncSnapshot<MyCache> snapshot) {
-        // 定义 route
+        // 定义 router
         var widget = snapshot.connectionState == ConnectionState.done
             ? Router(
                 routerDelegate: _routerDelegate,
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
           ],
           supportedLocales: [Locale('zh', 'CH')],
           builder: EasyLoading.init(),
-          // 定义 route
+          // 设置 router
           home: widget,
         );
       },
@@ -82,13 +82,25 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   final GlobalKey<NavigatorState> navigatorKey;
   // pages 存放所有页面
   List<MaterialPage> pages = [];
-  //
+  // 路由状态
   RouteStatus _routeStatus = RouteStatus.home;
   //
   int? id;
 
-  // 管理路由堆栈（ Navigator 2.0 的优势之一就在这个 pages 栈，能够一次导入多个页面）
-  // 管理路由堆栈（当前显示的页面，要将那些页面出栈等等操作都在这里管理）
+  // 是否登录
+  bool get hasLogin => LoginDao.getToken() != null;
+  // 路由拦截
+  RouteStatus get routeStatus {
+    if (!hasLogin) {
+      return _routeStatus = RouteStatus.login;
+    } else if (id != null) {
+      return _routeStatus = RouteStatus.detail;
+    } else {
+      return _routeStatus;
+    }
+  }
+
+  // 管理路由堆栈（ Navigator 2.0 的优势之一就在这个 pages 栈，能够一次导入多个页面；当前显示的页面，要将那些页面出栈等等操作都在这里管理）
   @override
   Widget build(BuildContext context) {
     var index = getPageIndex(pages, routeStatus);
@@ -96,11 +108,13 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     List<MaterialPage> tempPages = pages;
     if (index != -1) {
       // 要打开的页面在栈中已存在，则将该页面和它上面的所有页面进行出栈
-      // 具体规则可以根据需要进行调整，这里要求栈中只允许有一个同样的页面的实例
+      // 具体的规则可以根据需要自行进行调整，脚手架这里只要求栈中只允许有一个同样的页面的实例
       tempPages = tempPages.sublist(0, index);
     }
     var page;
-    if (routeStatus == RouteStatus.home) {
+    if (routeStatus == RouteStatus.login) {
+      page = pageWrap(LoginPage());
+    } else if (routeStatus == RouteStatus.home) {
       // 跳转首页时将栈中其它页面进行出栈，因为首页不可回退
       pages.clear();
       page = pageWrap(
@@ -114,10 +128,8 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
       );
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(DetailPage(id: id!));
-    } else if (routeStatus == RouteStatus.login) {
-      page = pageWrap(LoginPage());
     }
-    // 重新创建一个数组，否则 pages 因引用没有改变路由不会生效
+    // 重新创建一个数组，否则 pages 因引用没有改变，路由不会生效
     tempPages = [...tempPages, page];
     pages = tempPages;
 
@@ -136,24 +148,11 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     );
   }
 
-  // 路由拦截
-  RouteStatus get routeStatus {
-    if (!hasLogin) {
-      return _routeStatus = RouteStatus.login;
-    } else if (id != null) {
-      return _routeStatus = RouteStatus.detail;
-    } else {
-      return _routeStatus;
-    }
-  }
-
-  bool get hasLogin => LoginDao.getToken() != null;
-
   @override
   Future<void> setNewRoutePath(MyRoutePath path) async {}
 }
 
-/// 定义路由数据，path
+/// 定义路由数据 path，由于没有配置 RouteInformationParser，所以该对象暂时没有实际作用
 class MyRoutePath {
   final String location;
   MyRoutePath.home() : location = '/';

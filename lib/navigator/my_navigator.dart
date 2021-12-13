@@ -3,6 +3,9 @@ import 'package:flutter_templete/pages/detail_page.dart';
 import 'package:flutter_templete/pages/home_page.dart';
 import 'package:flutter_templete/pages/login_page.dart';
 
+/// 自定义路由封装，也就是路由状态，unknown 代表未知的页面
+enum RouteStatus { login, home, detail, unknown }
+
 /// 创建页面
 pageWrap(Widget child) {
   return MaterialPage(
@@ -22,10 +25,6 @@ int getPageIndex(List<MaterialPage> pages, RouteStatus routeStatus) {
   }
   return -1;
 }
-
-/// 自定义路由封装，也就是路由状态
-/// unknown 代表未知的页面
-enum RouteStatus { login, home, detail, unknown }
 
 /// 获取 page 对应的 RouteStatus
 RouteStatus getStatus(MaterialPage page) {
