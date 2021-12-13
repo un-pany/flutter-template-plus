@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_templete/common/color.dart';
+import 'package:flutter_templete/db/my_cache.dart';
 import 'package:flutter_templete/http/dao/login_dao.dart';
+import 'package:flutter_templete/navigator/my_navigator.dart';
 import 'package:flutter_templete/pages/detail_page.dart';
 import 'package:flutter_templete/pages/home_page.dart';
 import 'package:flutter_templete/pages/login_page.dart';
@@ -25,33 +27,48 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   MyRouterDelegate _routerDelegate = MyRouterDelegate();
-  MyRouteInformationParser _routeInformationParser = MyRouteInformationParser();
+
   @override
   Widget build(BuildContext context) {
-    // 定义 route
-    var widget = Router(
-      routeInformationParser: _routeInformationParser,
-      routerDelegate: _routerDelegate,
-      // routeInformationParser 不为空时，必须设置 routeInformationProvider
-      routeInformationProvider: PlatformRouteInformationProvider(
-        initialRouteInformation: RouteInformation(location: '/'),
-      ),
-    );
-    return MaterialApp(
-      title: 'flutter_templete',
-      theme: ThemeData(
-        // 主题
-        primarySwatch: primaryColor,
-      ),
-      localizationsDelegates: [
-        // 本地化的代理类
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [Locale('zh', 'CH')],
-      builder: EasyLoading.init(),
-      // 定义 route
-      home: widget,
+    // 配置 EasyLoading 单例
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..userInteractions = false // 期间是否允许用户操作
+      ..dismissOnTap = false // 点击背景是否关闭
+      ..maskType = EasyLoadingMaskType.black; // 遮蔽层
+
+    return FutureBuilder<MyCache>(
+      // 进行项目的预初始化
+      future: MyCache.preInit(),
+      builder: (BuildContext context, AsyncSnapshot<MyCache> snapshot) {
+        // 定义 route
+        var widget = snapshot.connectionState == ConnectionState.done
+            ? Router(
+                routerDelegate: _routerDelegate,
+              )
+            : Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+
+        return MaterialApp(
+          title: 'flutter_templete',
+          theme: ThemeData(
+            // 主题
+            primarySwatch: primaryColor,
+          ),
+          localizationsDelegates: [
+            // 本地化的代理类
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [Locale('zh', 'CH')],
+          builder: EasyLoading.init(),
+          // 定义 route
+          home: widget,
+        );
+      },
     );
   }
 }
@@ -64,16 +81,26 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   final GlobalKey<NavigatorState> navigatorKey;
   // pages 存放所有页面
   List<MaterialPage> pages = [];
-  // path
-  MyRoutePath? path;
+  //
+  RouteStatus _routeStatus = RouteStatus.home;
   //
   int? id;
 
   @override
   Widget build(BuildContext context) {
-    // 构建路由栈
-    pages = [
-      pageWrap(
+    var index = getPageIndex(pages, routeStatus);
+    // 临时变量 tempPages
+    List<MaterialPage> tempPages = pages;
+    if (index != -1) {
+      // 要打开的页面在栈中已存在，则将该页面和它上面的所有页面进行出栈
+      // 具体规则可以根据需要进行调整，这里要求栈中只允许有一个同样的页面的实例
+      tempPages = tempPages.sublist(0, index);
+    }
+    var page;
+    if (routeStatus == RouteStatus.home) {
+      // 跳转首页时将栈中其它页面进行出栈，因为首页不可回退
+      pages.clear();
+      page = pageWrap(
         HomePage(
           onJumpToDetail: (id) {
             this.id = id;
@@ -81,9 +108,16 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
             notifyListeners();
           },
         ),
-      ),
-      if (id != null) pageWrap(DetailPage(id: id!)),
-    ];
+      );
+    } else if (routeStatus == RouteStatus.detail) {
+      page = pageWrap(DetailPage(id: id!));
+    } else if (routeStatus == RouteStatus.login) {
+      page = pageWrap(LoginPage());
+    }
+    // 重新创建一个数组，否则 pages 因引用没有改变路由不会生效
+    tempPages = [...tempPages, page];
+    pages = tempPages;
+
     // 返回整个路由堆栈信息
     return Navigator(
       key: navigatorKey,
@@ -99,26 +133,21 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     );
   }
 
-  @override
-  Future<void> setNewRoutePath(MyRoutePath path) async {
-    this.path = path;
-  }
-}
-
-/// RouteInformationParser 路由数据解析，主要应用于 Web，可缺省
-class MyRouteInformationParser extends RouteInformationParser<MyRoutePath> {
-  @override
-  Future<MyRoutePath> parseRouteInformation(
-      RouteInformation routeInformation) async {
-    // 解析出 uri
-    final uri = Uri.parse(routeInformation.location ?? '');
-    print('uri:$uri');
-    if (uri.pathSegments.length == 0) {
-      // 长度为 0，我们认为是首页
-      return MyRoutePath.home();
+  // 路由拦截
+  RouteStatus get routeStatus {
+    if (!hasLogin) {
+      return _routeStatus = RouteStatus.login;
+    } else if (id != null) {
+      return _routeStatus = RouteStatus.detail;
+    } else {
+      return _routeStatus;
     }
-    return MyRoutePath.detail();
   }
+
+  bool get hasLogin => LoginDao.getToken() != null;
+
+  @override
+  Future<void> setNewRoutePath(MyRoutePath path) async {}
 }
 
 /// 定义路由数据，path
@@ -127,75 +156,3 @@ class MyRoutePath {
   MyRoutePath.home() : location = '/';
   MyRoutePath.detail() : location = '/detail';
 }
-
-/// 创建页面
-pageWrap(Widget child) {
-  return MaterialPage(
-    // key 保持唯一就行
-    key: ValueKey(child.hashCode),
-    child: child,
-  );
-}
-
-// class MyApp extends StatelessWidget {
-//   MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // 配置 EasyLoading 单例
-//     EasyLoading.instance
-//       ..displayDuration = const Duration(milliseconds: 2000)
-//       ..userInteractions = false // 期间是否允许用户操作
-//       ..dismissOnTap = false // 点击背景是否关闭
-//       ..maskType = EasyLoadingMaskType.black; // 遮蔽层
-
-//     return MaterialApp(
-//       title: 'flutter_templete',
-//       theme: ThemeData(
-//         primarySwatch: primaryColor, // 主题
-//       ),
-//       initialRoute: "home",
-//       onGenerateRoute: onGenerateRoute,
-//       localizationsDelegates: [
-//         // 本地化的代理类
-//         GlobalMaterialLocalizations.delegate,
-//         GlobalWidgetsLocalizations.delegate,
-//       ],
-//       supportedLocales: [Locale('zh', 'CH')],
-//       builder: EasyLoading.init(),
-//     );
-//   }
-
-//   // 路由钩子
-//   Route<dynamic> onGenerateRoute(RouteSettings settings) {
-//     String? routeName;
-//     routeName = routeBeforeHook(settings);
-//     return MaterialPageRoute(builder: (context) {
-//       /// 注意：如果路由的形式为: '/a/b/c'
-//       /// 那么将依次检索 '/' -> '/a' -> '/a/b' -> '/a/b/c'
-//       /// 所以，这里的路由命名最好避免使用 '/xxx' 形式
-//       switch (routeName) {
-//         case "login":
-//           return LoginPage();
-//         default:
-//           return Scaffold(
-//             body: Center(
-//               child: Text("页面不存在"),
-//             ),
-//           );
-//       }
-//     });
-//   }
-
-//   // 路由拦截器
-//   String? routeBeforeHook(RouteSettings settings) {
-//     final token = LoginDao.getToken();
-//     if (token != null) {
-//       if (settings.name == 'login') {
-//         return 'home';
-//       }
-//       return settings.name;
-//     }
-//     return 'login';
-//   }
-// }
