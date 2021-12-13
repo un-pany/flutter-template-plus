@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
               )
             : Scaffold(
                 body: Center(
+                  // 初始化未完成时，显示 loading 动画
                   child: CircularProgressIndicator(),
                 ),
               );
@@ -86,6 +87,8 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   //
   int? id;
 
+  // 管理路由堆栈（ Navigator 2.0 的优势之一就在这个 pages 栈，能够一次导入多个页面）
+  // 管理路由堆栈（当前显示的页面，要将那些页面出栈等等操作都在这里管理）
   @override
   Widget build(BuildContext context) {
     var index = getPageIndex(pages, routeStatus);

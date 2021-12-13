@@ -23,6 +23,6 @@ class LoginDao {
 
   // 获取登录令牌
   static String? getToken() {
-    return MyCache.getInstance().get(Token);
+    return MyCache.getInstance().get<String>(Token);
   }
 }
