@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_templete/pages/detail_page.dart';
-import 'package:flutter_templete/pages/home_page.dart';
-import 'package:flutter_templete/pages/login_page.dart';
+import 'package:flutter_template/pages/detail_page.dart';
+import 'package:flutter_template/pages/home_page.dart';
+import 'package:flutter_template/pages/login_page.dart';
 
 /// 自定义路由封装，也就是路由状态，unknown 代表未知的页面
 enum RouteStatus { login, home, detail, unknown }

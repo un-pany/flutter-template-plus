@@ -1,5 +1,5 @@
-import 'package:flutter_templete/http/core/my_net_adapter.dart';
-import 'package:flutter_templete/http/core/my_base_request.dart';
+import 'package:flutter_template/http/core/my_net_adapter.dart';
+import 'package:flutter_template/http/core/my_base_request.dart';
 
 /// 测试适配器，mock数据
 

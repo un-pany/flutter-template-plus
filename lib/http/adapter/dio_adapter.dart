@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_templete/http/core/my_net_adapter.dart';
-import 'package:flutter_templete/http/core/my_net_error.dart';
-import 'package:flutter_templete/http/core/my_base_request.dart';
+import 'package:flutter_template/http/core/my_net_adapter.dart';
+import 'package:flutter_template/http/core/my_net_error.dart';
+import 'package:flutter_template/http/core/my_base_request.dart';
 
 /// Dio 适配器
 class DioAdapter extends MyNetAdapter {

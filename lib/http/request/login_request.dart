@@ -1,4 +1,4 @@
-import 'package:flutter_templete/http/core/my_base_request.dart';
+import 'package:flutter_template/http/core/my_base_request.dart';
 
 class LoginRequest extends MyBaseRequest {
   @override

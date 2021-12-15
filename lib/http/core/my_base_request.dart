@@ -1,4 +1,4 @@
-import 'package:flutter_templete/http/dao/login_dao.dart';
+import 'package:flutter_template/http/dao/login_dao.dart';
 
 /// RESTful 请求
 enum HttpMethod { GET, POST, DELETE, PUT }

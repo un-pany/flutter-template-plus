@@ -1,6 +1,6 @@
-import 'package:flutter_templete/db/my_cache.dart';
-import 'package:flutter_templete/http/core/my_net.dart';
-import 'package:flutter_templete/http/request/login_request.dart';
+import 'package:flutter_template/db/my_cache.dart';
+import 'package:flutter_template/http/core/my_net.dart';
+import 'package:flutter_template/http/request/login_request.dart';
 
 /// 数据访问对象层，与服务端交互的部分，可以放在 Dao 层
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_templete/common/color.dart';
-import 'package:flutter_templete/db/my_cache.dart';
-import 'package:flutter_templete/http/dao/login_dao.dart';
-import 'package:flutter_templete/navigator/my_navigator.dart';
-import 'package:flutter_templete/pages/detail_page.dart';
-import 'package:flutter_templete/pages/home_page.dart';
-import 'package:flutter_templete/pages/login_page.dart';
+import 'package:flutter_template/common/color.dart';
+import 'package:flutter_template/db/my_cache.dart';
+import 'package:flutter_template/http/dao/login_dao.dart';
+import 'package:flutter_template/navigator/my_navigator.dart';
+import 'package:flutter_template/pages/detail_page.dart';
+import 'package:flutter_template/pages/home_page.dart';
+import 'package:flutter_template/pages/login_page.dart';
 
 void main() {
   // 网格线
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
               );
 
         return MaterialApp(
-          title: 'flutter_templete',
+          title: 'flutter_template',
           theme: ThemeData(
             // 主题
             primarySwatch: primaryColor,
