@@ -77,7 +77,20 @@ class _MyAppState extends State<MyApp> {
 /// 路由代理
 class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<MyRoutePath> {
-  MyRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>();
+  MyRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
+    // 实现路由跳转逻辑
+    MyNavigator.getInstance().registerRouteJump(
+      RouteJumpListener(
+        onJumpTo: (RouteStatus routeStatus, {Map? args}) {
+          _routeStatus = routeStatus;
+          if (routeStatus == RouteStatus.detail) {
+            this.id = args!['id'];
+          }
+          notifyListeners();
+        },
+      ),
+    );
+  }
   // 为 Navigator 设置一个 key，必要时可以通过 navigatorKey.currentState 来获取到 navigatorState 对象
   final GlobalKey<NavigatorState> navigatorKey;
   // pages 存放所有页面
@@ -114,30 +127,19 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     var page;
     if (routeStatus == RouteStatus.login) {
       page = pageWrap(
-        LoginPage(
-          onJumpToHome: () {
-            _routeStatus = RouteStatus.home;
-            // notifyListeners 通知数据变化，和 setState 效果一样
-            notifyListeners();
-          },
-        ),
+        LoginPage(),
       );
     } else if (routeStatus == RouteStatus.home) {
       // 跳转首页时将栈中其它页面进行出栈，因为首页不可回退
       pages.clear();
-      page = pageWrap(
-        HomePage(
-          onJumpToDetail: (id) {
-            this.id = id;
-            notifyListeners();
-          },
-        ),
-      );
+      page = pageWrap(HomePage());
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(DetailPage(id: id!));
     }
     // 重新创建一个数组，否则 pages 因引用没有改变，路由不会生效
     tempPages = [...tempPages, page];
+    // 通知路由发生变化
+    MyNavigator.getInstance().notify(tempPages, pages);
     pages = tempPages;
 
     // 返回整个路由堆栈信息
@@ -165,7 +167,10 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
             // 不可以返回
             return false;
           }
+          var tempPages = [...pages];
           pages.removeLast();
+          // 通知路由发生变化
+          MyNavigator.getInstance().notify(pages, tempPages);
           return true;
         },
       ),

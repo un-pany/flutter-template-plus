@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_template/http/core/my_net_error.dart';
 import 'package:flutter_template/http/dao/login_dao.dart';
+import 'package:flutter_template/navigator/my_navigator.dart';
 import 'package:flutter_template/widgets/login_input.dart';
 
 class LoginPage extends StatefulWidget {
-  // ValueChanged 和 VoidCallback 都代表回调，前者有参数，后者没有参数
-  final VoidCallback onJumpToHome;
 
-  LoginPage({Key? key, required this.onJumpToHome}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -132,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                   _passwordController.text.trim(),
                 );
                 EasyLoading.dismiss();
-                widget.onJumpToHome();
+                MyNavigator.getInstance().onJumpTo(RouteStatus.home);
               } on NeedLogin catch (e) {
                 EasyLoading.showError(e.message);
               } on NeedAuth catch (e) {
