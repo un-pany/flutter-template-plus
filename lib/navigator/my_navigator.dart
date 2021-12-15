@@ -4,7 +4,7 @@ import 'package:flutter_template/pages/navigator_page.dart';
 import 'package:flutter_template/pages/login_page.dart';
 
 /// 自定义路由封装，也就是路由状态，unknown 代表未知的页面
-enum RouteStatus { login, navigator, home, detail, unknown }
+enum RouteStatus { login, navigator, detail, unknown }
 
 /// 创建页面
 pageWrap(Widget child) {
@@ -77,8 +77,8 @@ class MyNavigator extends _RouteJumpListener {
   List<RouteChangeListener> _listeners = [];
   RouteStatusInfo? _current;
 
-  /// 首页底部tab
-  // RouteStatusInfo? _bottomTab;
+  // 导航页底部 tab
+  RouteStatusInfo? _bottomTab;
 
   MyNavigator._();
 
@@ -103,11 +103,11 @@ class MyNavigator extends _RouteJumpListener {
   //   }
   // }
 
-  /// 首页底部tab切换监听
-  // void onBottomTabChange(int index, Widget page) {
-  //   _bottomTab = RouteStatusInfo(RouteStatus.home, page);
-  //   _notify(_bottomTab!);
-  // }
+  /// 导航页底部 tab 切换监听
+  void onBottomTabChange(int index, Widget page) {
+    _bottomTab = RouteStatusInfo(RouteStatus.navigator, page);
+    _notify(_bottomTab!);
+  }
 
   /// 注册路由跳转逻辑
   void registerRouteJump(RouteJumpListener routeJumpListener) {
@@ -144,12 +144,12 @@ class MyNavigator extends _RouteJumpListener {
   }
 
   void _notify(RouteStatusInfo current) {
-    // if (current.page is BottomNavigator && _bottomTab != null) {
-    //   // 如果打开的是首页，则明确到首页具体的 tab
-    //   current = _bottomTab!;
-    // }
-    print('hi_navigator:current:${current.page}');
-    print('hi_navigator:pre:${_current?.page}');
+    if (current.page is NavigatorPage && _bottomTab != null) {
+      // 如果打开的是导航页，则明确到导航页具体的 tab
+      current = _bottomTab!;
+    }
+    print('my_navigator:current:${current.page}');
+    print('my_navigator:pre:${_current?.page}');
     _listeners.forEach((listener) {
       listener(current, _current);
     });
