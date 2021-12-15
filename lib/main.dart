@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/common/color.dart';
 import 'package:flutter_template/db/my_cache.dart';
 import 'package:flutter_template/http/dao/login_dao.dart';
+import 'package:flutter_template/navigator/bottom_navigator.dart';
 import 'package:flutter_template/navigator/my_navigator.dart';
 import 'package:flutter_template/pages/detail_page.dart';
 import 'package:flutter_template/pages/home_page.dart';
@@ -132,7 +133,7 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     } else if (routeStatus == RouteStatus.home) {
       // 跳转首页时将栈中其它页面进行出栈，因为首页不可回退
       pages.clear();
-      page = pageWrap(HomePage());
+      page = pageWrap(BottomNavigator());
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(DetailPage(id: id!));
     }
