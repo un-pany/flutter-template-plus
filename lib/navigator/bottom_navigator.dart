@@ -25,32 +25,29 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     MePage(),
   ];
 
-  // static int initialPage = 0;
-  // final PageController _controller = PageController(initialPage: initialPage);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: _activeColor,
+        items: [
+          _bottomItem('首页', Icons.home_outlined),
+          _bottomItem('我的', Icons.person_outline),
+        ],
         onTap: (index) => {
           setState(() {
             _currentIndex = index;
           })
         },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: _activeColor,
-        items: [
-          _bottomItem('首页', Icons.home_outlined, 0),
-          _bottomItem('我的', Icons.person_outline, 1),
-        ],
       ),
     );
   }
 
   // 底部 Item
-  BottomNavigationBarItem _bottomItem(String label, IconData icon, int index) {
+  BottomNavigationBarItem _bottomItem(String label, IconData icon) {
     return BottomNavigationBarItem(
       label: label,
       icon: Icon(icon, color: _defaultColor),
