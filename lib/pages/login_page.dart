@@ -24,24 +24,23 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      appBar: AppBar(),
+      // ListView 可以自适应键盘，防止键盘弹起后遮挡
+      body: ListView(
         padding: EdgeInsets.only(
           left: 35,
           right: 35,
         ),
-        // ListView 可以自适应键盘，防止键盘弹起后遮挡
-        child: ListView(
-          children: [
-            Image.asset(
-              'assets/images/login/logo.png',
-              width: 200,
-              height: 200,
-            ),
-            _form(),
-            _save(),
-            _button(),
-          ],
-        ),
+        children: [
+          Image.asset(
+            'assets/images/login/logo.png',
+            width: 200,
+            height: 200,
+          ),
+          _form(),
+          _save(),
+          _button(),
+        ],
       ),
     );
   }
