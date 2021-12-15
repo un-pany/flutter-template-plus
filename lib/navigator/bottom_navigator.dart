@@ -13,34 +13,23 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
-  // 默认色
+  // 默认的颜色
   final _defaultColor = Colors.grey;
-  // 主题色
+  // 选中后的颜色
   final _activeColor = primaryColor;
   // 当前索引
   int _currentIndex = 0;
   // 页面
-  List<Widget> _pages = [];
+  final List<Widget> _pages = [
+    HomePage(),
+    MePage(),
+  ];
 
-  static int initialPage = 0;
-  final PageController _controller = PageController(initialPage: initialPage);
-
-  /// 底部 Item
-  BottomNavigationBarItem _bottomItem(String label, IconData icon, int index) {
-    return BottomNavigationBarItem(
-      label: label,
-      icon: Icon(icon, color: _defaultColor),
-      activeIcon: Icon(icon, color: _activeColor),
-    );
-  }
+  // static int initialPage = 0;
+  // final PageController _controller = PageController(initialPage: initialPage);
 
   @override
   Widget build(BuildContext context) {
-    _pages = [
-      HomePage(),
-      MePage(),
-    ];
-
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -57,6 +46,15 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           _bottomItem('我的', Icons.person_outline, 1),
         ],
       ),
+    );
+  }
+
+  // 底部 Item
+  BottomNavigationBarItem _bottomItem(String label, IconData icon, int index) {
+    return BottomNavigationBarItem(
+      label: label,
+      icon: Icon(icon, color: _defaultColor),
+      activeIcon: Icon(icon, color: _activeColor),
     );
   }
 }
