@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                   _passwordController.text.trim(),
                 );
                 EasyLoading.dismiss();
-                MyNavigator.getInstance().onJumpTo(RouteStatus.home);
+                MyNavigator.getInstance().onJumpTo(RouteStatus.navigator);
               } on NeedLogin catch (e) {
                 EasyLoading.showError(e.message);
               } on NeedAuth catch (e) {

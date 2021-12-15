@@ -5,14 +5,14 @@ import 'package:flutter_template/pages/home_page.dart';
 import 'package:flutter_template/pages/me_page.dart';
 import 'package:flutter_template/common/color.dart';
 
-class BottomNavigator extends StatefulWidget {
-  const BottomNavigator({Key? key}) : super(key: key);
+class NavigatorPage extends StatefulWidget {
+  const NavigatorPage({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigatorState createState() => _BottomNavigatorState();
+  _NavigatorPageState createState() => _NavigatorPageState();
 }
 
-class _BottomNavigatorState extends State<BottomNavigator> {
+class _NavigatorPageState extends State<NavigatorPage> {
   // 默认的颜色
   final _defaultColor = Colors.grey;
   // 选中后的颜色

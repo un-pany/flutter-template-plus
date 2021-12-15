@@ -4,10 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/common/color.dart';
 import 'package:flutter_template/db/my_cache.dart';
 import 'package:flutter_template/http/dao/login_dao.dart';
-import 'package:flutter_template/navigator/bottom_navigator.dart';
+import 'package:flutter_template/pages/navigator_page.dart';
 import 'package:flutter_template/navigator/my_navigator.dart';
 import 'package:flutter_template/pages/detail_page.dart';
-import 'package:flutter_template/pages/home_page.dart';
 import 'package:flutter_template/pages/login_page.dart';
 
 void main() {
@@ -97,7 +96,7 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   // pages 存放所有页面
   List<MaterialPage> pages = [];
   // 路由状态
-  RouteStatus _routeStatus = RouteStatus.home;
+  RouteStatus _routeStatus = RouteStatus.navigator;
   //
   int? id;
 
@@ -130,10 +129,10 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
       page = pageWrap(
         LoginPage(),
       );
-    } else if (routeStatus == RouteStatus.home) {
-      // 跳转首页时将栈中其它页面进行出栈，因为首页不可回退
+    } else if (routeStatus == RouteStatus.navigator) {
+      // 跳转 NavigatorPage 时将栈中其它页面进行出栈，因为 NavigatorPage 不可回退
       pages.clear();
-      page = pageWrap(BottomNavigator());
+      page = pageWrap(NavigatorPage());
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(DetailPage(id: id!));
     }
