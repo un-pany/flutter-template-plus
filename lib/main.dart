@@ -44,9 +44,7 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, AsyncSnapshot<MyCache> snapshot) {
         // 定义 router
         var widget = snapshot.connectionState == ConnectionState.done
-            ? Router(
-                routerDelegate: _routerDelegate,
-              )
+            ? Router(routerDelegate: _routerDelegate)
             : Scaffold(
                 body: Center(
                   // 初始化未完成时，显示 loading 动画
@@ -76,8 +74,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 /// 路由代理
-class MyRouterDelegate extends RouterDelegate<MyRoutePath>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<MyRoutePath> {
+class MyRouterDelegate extends RouterDelegate<dynamic>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<dynamic> {
   MyRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
     // 实现路由跳转逻辑
     MyNavigator.getInstance().registerRouteJump(
@@ -98,7 +96,7 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   List<MaterialPage> pages = [];
   // 路由状态
   RouteStatus _routeStatus = RouteStatus.navigator;
-  //
+  // 要传递给详情页的 id 数据
   int? id;
 
   // 是否登录
@@ -107,8 +105,6 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   RouteStatus get routeStatus {
     if (!hasLogin) {
       return _routeStatus = RouteStatus.login;
-    } else if (id != null) {
-      return _routeStatus = RouteStatus.detail;
     } else {
       return _routeStatus;
     }
@@ -128,9 +124,7 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     var page;
     if (routeStatus == RouteStatus.login) {
       pages.clear();
-      page = pageWrap(
-        LoginPage(),
-      );
+      page = pageWrap(LoginPage());
     } else if (routeStatus == RouteStatus.navigator) {
       // 跳转 NavigatorPage 时将栈中其它页面进行出栈，因为 NavigatorPage 不可回退
       pages.clear();
@@ -180,12 +174,5 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
   }
 
   @override
-  Future<void> setNewRoutePath(MyRoutePath path) async {}
-}
-
-/// 定义路由数据 path，由于没有配置 RouteInformationParser，所以该对象暂时没有实际作用
-class MyRoutePath {
-  final String location;
-  MyRoutePath.home() : location = '/';
-  MyRoutePath.detail() : location = '/detail';
+  Future<void> setNewRoutePath(dynamic path) async {}
 }
