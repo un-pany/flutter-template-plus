@@ -3,12 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/common/color.dart';
 import 'package:flutter_template/common/init_data.dart';
-import 'package:flutter_template/db/my_cache.dart';
-import 'package:flutter_template/http/dao/login_dao.dart';
-import 'package:flutter_template/pages/navigator_page.dart';
-import 'package:flutter_template/navigator/my_navigator.dart';
-import 'package:flutter_template/pages/detail_page.dart';
-import 'package:flutter_template/pages/login_page.dart';
+import 'navigator/my_router_delegate.dart';
 
 void main() {
   // 网格线
@@ -60,108 +55,4 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-}
-
-/// 路由代理
-class MyRouterDelegate extends RouterDelegate<dynamic>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<dynamic> {
-  MyRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
-    // 实现路由跳转逻辑
-    MyNavigator.getInstance().registerRouteJump(
-      RouteJumpListener(
-        onJumpTo: (RouteStatus routeStatus, {Map? args}) {
-          _routeStatus = routeStatus;
-          if (routeStatus == RouteStatus.detail) {
-            this.id = args!['id'];
-          }
-          notifyListeners();
-        },
-      ),
-    );
-  }
-  // 为 Navigator 设置一个 key，必要时可以通过 navigatorKey.currentState 来获取到 navigatorState 对象
-  final GlobalKey<NavigatorState> navigatorKey;
-  // pages 存放所有页面
-  List<MaterialPage> pages = [];
-  // 路由状态
-  RouteStatus _routeStatus = RouteStatus.navigator;
-  // 要传递给详情页的 id 数据
-  int? id;
-
-  // 是否登录
-  bool get hasLogin => LoginDao.getToken() != null;
-  // 路由拦截
-  RouteStatus get routeStatus {
-    if (!hasLogin) {
-      return _routeStatus = RouteStatus.login;
-    } else {
-      return _routeStatus;
-    }
-  }
-
-  // 管理路由堆栈（ Navigator 2.0 的优势之一就在这个 pages 栈，能够一次导入多个页面；当前显示的页面，要将那些页面出栈等等操作都在这里管理）
-  @override
-  Widget build(BuildContext context) {
-    var index = getPageIndex(pages, routeStatus);
-    // 临时变量 tempPages
-    List<MaterialPage> tempPages = pages;
-    if (index != -1) {
-      // 要打开的页面在栈中已存在，则将该页面和它上面的所有页面进行出栈
-      // 具体的规则可以根据需要自行进行调整，脚手架这里只要求栈中只允许有一个同样的页面的实例
-      tempPages = tempPages.sublist(0, index);
-    }
-    var page;
-    if (routeStatus == RouteStatus.login) {
-      pages.clear();
-      page = pageWrap(LoginPage());
-    } else if (routeStatus == RouteStatus.navigator) {
-      // 跳转 NavigatorPage 时将栈中其它页面进行出栈，因为 NavigatorPage 不可回退
-      pages.clear();
-      page = pageWrap(NavigatorPage());
-    } else if (routeStatus == RouteStatus.detail) {
-      page = pageWrap(DetailPage(id: id!));
-    }
-    // 重新创建一个数组，否则 pages 因引用没有改变，路由不会生效
-    tempPages = [...tempPages, page];
-    // 通知路由发生变化
-    MyNavigator.getInstance().notify(tempPages, pages);
-    pages = tempPages;
-
-    // 返回整个路由堆栈信息
-    return WillPopScope(
-      // fix: Android 物理返回键，无法返回上一页问题 @https://github.com/flutter/flutter/issues/66349
-      // WillPopScope + onWillPop 就是解决这个问题的关键
-      onWillPop: () async =>
-          !(await navigatorKey.currentState?.maybePop() ?? false),
-      child: Navigator(
-        key: navigatorKey,
-        pages: pages,
-        // 返回上一页时触犯（在这里可以控制是否返回）
-        onPopPage: (route, result) {
-          if (route.settings is MaterialPage) {
-            // login 页未登录时，做一下返回拦截（防御性编程）
-            if ((route.settings as MaterialPage).child is LoginPage) {
-              if (!hasLogin) {
-                EasyLoading.showInfo("请先登录");
-                return false;
-              }
-            }
-          }
-          // 执行返回操作
-          if (!route.didPop(result)) {
-            // 不可以返回
-            return false;
-          }
-          var tempPages = [...pages];
-          pages.removeLast();
-          // 通知路由发生变化
-          MyNavigator.getInstance().notify(pages, tempPages);
-          return true;
-        },
-      ),
-    );
-  }
-
-  @override
-  Future<void> setNewRoutePath(dynamic path) async {}
 }
