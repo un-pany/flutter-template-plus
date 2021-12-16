@@ -35,7 +35,8 @@ class _MyAppState extends State<MyApp> {
       ..displayDuration = const Duration(milliseconds: 2000)
       ..userInteractions = false // 期间是否允许用户操作
       ..dismissOnTap = false // 点击背景是否关闭
-      ..maskType = EasyLoadingMaskType.black; // 遮蔽层
+      ..maskType = EasyLoadingMaskType.black // 遮蔽层
+      ..toastPosition = EasyLoadingToastPosition.bottom; // Toast 出现的位置
 
     return FutureBuilder<MyCache>(
       // 进行项目的预初始化

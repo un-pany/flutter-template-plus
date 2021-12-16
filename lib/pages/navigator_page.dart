@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_template/navigator/my_navigator.dart';
 import 'package:flutter_template/pages/home_page.dart';
 import 'package:flutter_template/pages/me_page.dart';
@@ -26,6 +26,8 @@ class _NavigatorPageState extends State<NavigatorPage> {
   ];
   // 是否已经 build 过了
   bool _hasBuild = false;
+  // 上次点击时间
+  DateTime? _lastPressedAt;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,10 @@ class _NavigatorPageState extends State<NavigatorPage> {
     }
 
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: WillPopScope(
+        onWillPop: exitApp,
+        child: _pages[_currentIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -65,5 +70,17 @@ class _NavigatorPageState extends State<NavigatorPage> {
       icon: Icon(icon, color: _defaultColor),
       activeIcon: Icon(icon, color: _activeColor),
     );
+  }
+
+  // 退出 app
+  Future<bool> exitApp() async {
+    if (_lastPressedAt == null ||
+        DateTime.now().difference(_lastPressedAt!) > Duration(seconds: 2)) {
+      EasyLoading.showToast('再点一次退出');
+      // 两次点击间隔超过2秒则重新计时
+      _lastPressedAt = DateTime.now();
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 }

@@ -89,20 +89,6 @@ class MyNavigator extends _RouteJumpListener {
     return _instance!;
   }
 
-  // RouteStatusInfo? getCurrent() {
-  //   return _current;
-  // }
-
-  /// 打开 h5
-  // Future<bool> openH5(String url) async {
-  //   var result = await canLaunch(url);
-  //   if (result) {
-  //     return await launch(url);
-  //   } else {
-  //     return Future.value(false);
-  //   }
-  // }
-
   /// 导航页底部 tab 切换监听
   void onBottomTabChange(int index, Widget page) {
     _bottomTab = RouteStatusInfo(RouteStatus.navigator, page);
