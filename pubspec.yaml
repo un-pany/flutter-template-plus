@@ -3,7 +3,8 @@ description: flutter_template
 
 publish_to: 'none'
 
-version: 1.0.0+1 # 版本号
+# 版本号
+version: 1.0.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -11,23 +12,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations: # 本地化
+  # 本地化
+  flutter_localizations:
     sdk: flutter
-  shared_preferences: ^2.0.11 # 数据持久化
-  dio: ^4.0.4 # http
-  flutter_easyloading: ^3.0.3 # loading 遮盖层
+  # 数据持久化
+  shared_preferences: ^2.0.11
+  # http
+  dio: ^4.0.4
+  # loading 遮盖层
+  flutter_easyloading: ^3.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter: # flutter 相关的配置选项
-  uses-material-design: true # 默认的 Material Design 字体图标
+# flutter 相关的配置选项
+flutter:
+# 默认的 Material Design 字体图标
+  uses-material-design: true
 
-  assets: # 静态资源
+  # 静态资源
+  assets:
     - assets/images/login/
 
+  # 自定义字体图标（该脚手架没有用这个，用的是 Flutter 自带的默认 Icons）
+  # 使用教程 https://book.flutterchina.club/chapter3/img_and_icon.html#_3-3-2-icon
   fonts:
     - family: iconfont
       fonts:
-        - asset: assets/icons/iconfont.ttf # 阿里矢量图标库提取的字体图标（该脚手架没有用这个，用的是 Flutter 自带的默认 icons）
+        - asset: assets/icons/iconfont.ttf

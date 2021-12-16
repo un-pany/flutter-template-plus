@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
       } else if (widget == pre?.page || pre?.page is HomePage) {
         // 通过 NavigatorPage 的底部 Tab 切换回当前页面时，不会触发
         // 这是因为 底部 Tab 切换时，重新构建了当前页，监听也随之被重新挂载
-        // 解决办法是：可以将 NavigatorPage 页面的 body 修改为 PageView 来渲染，并且将当前页 KeepAlive
+        // 解决办法是: 可以将 NavigatorPage 页面的 body 修改为 PageView 来渲染，并且将当前页 KeepAlive
         print('离开了当前页面，即首页');
       }
     });

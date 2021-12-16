@@ -10,7 +10,7 @@ abstract class MyState<T extends StatefulWidget> extends State<T> {
       // 页面已装载
       super.setState(fn);
     } else {
-      print('MyState：页面已销毁，本次 setState 不执行：${toString()}');
+      print('MyState: 页面已销毁，本次 setState 不执行: ${toString()}');
     }
   }
 }
