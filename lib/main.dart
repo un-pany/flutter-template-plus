@@ -127,6 +127,7 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
     }
     var page;
     if (routeStatus == RouteStatus.login) {
+      pages.clear();
       page = pageWrap(
         LoginPage(),
       );
@@ -155,7 +156,7 @@ class MyRouterDelegate extends RouterDelegate<MyRoutePath>
         // 返回上一页时触犯（在这里可以控制是否返回）
         onPopPage: (route, result) {
           if (route.settings is MaterialPage) {
-            // login 页未登录时，做一下返回拦截（是防御性编程，该脚手架其实不会出现从 login 页返回其他需要登录的页面的情况）
+            // login 页未登录时，做一下返回拦截（防御性编程）
             if ((route.settings as MaterialPage).child is LoginPage) {
               if (!hasLogin) {
                 EasyLoading.showInfo("请先登录");

@@ -25,4 +25,9 @@ class LoginDao {
   static String? getToken() {
     return MyCache.getInstance().get<String>(Token);
   }
+
+  // 删除登录令牌
+  static removeToken() {
+    return MyCache.getInstance().remove(Token);
+  }
 }

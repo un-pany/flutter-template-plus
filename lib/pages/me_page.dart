@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/http/dao/login_dao.dart';
+import 'package:flutter_template/navigator/my_navigator.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -15,7 +17,13 @@ class _MePageState extends State<MePage> {
         title: Text('我的'),
       ),
       body: Center(
-        child: Text('我的页面'),
+        child: ElevatedButton(
+          child: Text("退出登录"),
+          onPressed: () {
+            LoginDao.removeToken();
+            MyNavigator.getInstance().onJumpTo(RouteStatus.login);
+          },
+        ),
       ),
     );
   }
