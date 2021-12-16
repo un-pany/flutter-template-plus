@@ -125,12 +125,20 @@ class _LoginPageState extends State<LoginPage> {
             if ((_formKey.currentState as FormState).validate()) {
               // 验证通过提交数据
               EasyLoading.show();
-              await LoginDao.login(
-                _userController.text.trim(),
-                _passwordController.text.trim(),
-              );
-              EasyLoading.dismiss();
-              MyNavigator.getInstance().onJumpTo(RouteStatus.navigator);
+              try {
+                await LoginDao.login(
+                  _userController.text.trim(),
+                  _passwordController.text.trim(),
+                );
+                EasyLoading.dismiss();
+                MyNavigator.getInstance().onJumpTo(RouteStatus.navigator);
+              } on MyNetError catch (e) {
+                // 请求发生异常
+                EasyLoading.showError(e.message);
+              } catch (e) {
+                // 其他代码异常
+                EasyLoading.showError(e.toString());
+              }
             }
           },
         ),

@@ -78,7 +78,7 @@ class MyNet {
         MyNavigator.getInstance().onJumpTo(RouteStatus.login);
         throw NeedAuth(result.toString(), data: result);
       default:
-        throw MyNetError(statusCode ?? -1, result.toString(), data: result);
+        throw MyNetError(statusCode ?? -200, result.toString(), data: result);
     }
   }
 
@@ -89,7 +89,7 @@ class MyNet {
       case 20000:
         return result;
       default:
-        throw MyNetError(code ?? -1, result.toString(), data: result);
+        throw MyNetError(code ?? -20000, result.toString(), data: result);
     }
   }
 
