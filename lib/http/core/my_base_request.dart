@@ -50,7 +50,6 @@ abstract class MyBaseRequest {
       // 给需要登录的接口携带登录令牌
       addHeader(LoginDao.Token, token);
     }
-    // print('url:${uri.toString()}');
     return uri.toString();
   }
 

@@ -6,7 +6,6 @@ import 'package:flutter_template/navigator/my_navigator.dart';
 import 'package:flutter_template/widgets/login_input.dart';
 
 class LoginPage extends StatefulWidget {
-
   LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -15,8 +14,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  TextEditingController _userController = TextEditingController(text: '');
-  TextEditingController _passwordController = TextEditingController(text: '');
+  TextEditingController _userController = TextEditingController(text: 'admin');
+  TextEditingController _passwordController =
+      TextEditingController(text: '12345678');
   // '记住密码' 复选框
   bool? _savePassword = false;
 
@@ -125,20 +125,12 @@ class _LoginPageState extends State<LoginPage> {
             if ((_formKey.currentState as FormState).validate()) {
               // 验证通过提交数据
               EasyLoading.show();
-              try {
-                await LoginDao.login(
-                  _userController.text.trim(),
-                  _passwordController.text.trim(),
-                );
-                EasyLoading.dismiss();
-                MyNavigator.getInstance().onJumpTo(RouteStatus.navigator);
-              } on NeedLogin catch (e) {
-                EasyLoading.showError(e.message);
-              } on NeedAuth catch (e) {
-                EasyLoading.showError(e.message);
-              } on MyNetError catch (e) {
-                EasyLoading.showError(e.message);
-              }
+              await LoginDao.login(
+                _userController.text.trim(),
+                _passwordController.text.trim(),
+              );
+              EasyLoading.dismiss();
+              MyNavigator.getInstance().onJumpTo(RouteStatus.navigator);
             }
           },
         ),

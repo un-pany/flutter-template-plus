@@ -2,6 +2,8 @@ import 'package:flutter_template/http/core/my_net_adapter.dart';
 import 'package:flutter_template/http/core/my_net_error.dart';
 import 'package:flutter_template/http/adapter/dio_adapter.dart';
 import 'package:flutter_template/http/core/my_base_request.dart';
+import 'package:flutter_template/http/dao/login_dao.dart';
+import 'package:flutter_template/navigator/my_navigator.dart';
 
 /// 支持第三方网络库插拔设计（当前架构选用 Dio），且不干扰业务层
 /// 简洁易用，基于配置进行请求
@@ -40,30 +42,55 @@ class MyNet {
     var result = response?.data;
     printLog('请求结果:$result');
 
-    // 解析 http 状态码
-    var statusCode = response?.statusCode;
-    switch (statusCode) {
-      case 200:
-        // 当 'http状态码' == 200 时，根据具体的业务，还可以在这里统一解析'业务状态码'，即 response?.data['code']，而不是直接 return result;
-        return result;
-      case 401:
-        throw NeedLogin();
-      case 403:
-        throw NeedAuth(result.toString(), data: result);
-      default:
-        throw MyNetError(statusCode ?? -1, result.toString(), data: result);
-    }
+    // http 状态码
+    int? statusCode = response?.statusCode;
+    // 业务状态码
+    int? code = response?.data['code'];
+    // http 状态码拦截器
+    return statusCodeInterceptor(statusCode, code, result);
   }
 
   Future<dynamic> send<T>(MyBaseRequest request) async {
-    // printLog('url:${request.url()}');
-
     // 使用 mock 发送请求
     // MyNetAdapter adapter = MockAdapter();
 
     // 使用 Dio 发送请求
     MyNetAdapter adapter = DioAdapter();
     return adapter.send(request);
+  }
+
+  // http 状态码拦截器
+  statusCodeInterceptor(int? statusCode, code, result) {
+    switch (statusCode) {
+      case 200:
+        // 当 'http 状态码' == 200 时，根据具体的业务，在这里统一解析'业务状态码'
+        return codeInterceptor(code, result);
+      case 401:
+        // 删除失效的 Token
+        LoginDao.removeToken();
+        // 调起登录页
+        MyNavigator.getInstance().onJumpTo(RouteStatus.login);
+        throw NeedLogin();
+      case 403:
+        // 删除失效的 Token
+        LoginDao.removeToken();
+        // 调起登录页
+        MyNavigator.getInstance().onJumpTo(RouteStatus.login);
+        throw NeedAuth(result.toString(), data: result);
+      default:
+        throw MyNetError(statusCode ?? -1, result.toString(), data: result);
+    }
+  }
+
+  // 业务状态码拦截器
+  codeInterceptor(code, result) {
+    switch (code) {
+      // 业务状态码 20000，代表成功
+      case 20000:
+        return result;
+      default:
+        throw MyNetError(code ?? -1, result.toString(), data: result);
+    }
   }
 
   void printLog(log) {
