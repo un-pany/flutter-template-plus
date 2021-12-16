@@ -43,6 +43,9 @@ class MyRouterDelegate extends RouterDelegate<dynamic>
     if (!hasLogin) {
       // 如果没有登录则将路由状态设置为 login 页
       return _routeStatus = RouteStatus.login;
+    } else if (hasLogin && _routeStatus == RouteStatus.login) {
+      // 如果登录了，就不允许跳转到 Login 页，重定向到 NavigatorPage 页
+      return _routeStatus = RouteStatus.navigator;
     } else {
       return _routeStatus;
     }
