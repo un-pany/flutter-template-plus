@@ -35,15 +35,11 @@ class _MyAppState extends State<MyApp> {
       // 进行项目的预初始化
       future: InitData.init(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        // 定义 router
-        var widget = snapshot.connectionState == ConnectionState.done
+        Widget widget = snapshot.connectionState == ConnectionState.done
+            // 定义 Router（Navigator 2.0 的概念）
             ? Router(routerDelegate: _routerDelegate)
-            : Scaffold(
-                body: Center(
-                  // 初始化未完成时，显示 loading 动画
-                  child: CircularProgressIndicator(),
-                ),
-              );
+            // 初始化未完成时，显示 loading 动画
+            : Scaffold(body: Center(child: CircularProgressIndicator()));
 
         return MaterialApp(
           title: 'flutter_template',
@@ -58,7 +54,7 @@ class _MyAppState extends State<MyApp> {
           ],
           supportedLocales: [Locale('zh', 'CH')],
           builder: EasyLoading.init(),
-          // 设置 router
+          // 设置 Router
           home: widget,
         );
       },
