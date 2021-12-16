@@ -1,7 +1,8 @@
 import 'package:flutter_template/http/core/my_net_adapter.dart';
 import 'package:flutter_template/http/core/my_base_request.dart';
 
-/// 测试适配器，mock数据
+/// 测试适配器，mock 数据
+/// 实际生产环境中，使用请 dio_adapter
 
 class MockAdapter extends MyNetAdapter {
   @override
