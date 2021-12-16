@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/common/color.dart';
+import 'package:flutter_template/common/init_data.dart';
 import 'package:flutter_template/db/my_cache.dart';
 import 'package:flutter_template/http/dao/login_dao.dart';
 import 'package:flutter_template/pages/navigator_page.dart';
@@ -30,18 +31,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // 配置 EasyLoading 单例
-    EasyLoading.instance
-      ..displayDuration = const Duration(milliseconds: 2000)
-      ..userInteractions = false // 期间是否允许用户操作
-      ..dismissOnTap = false // 点击背景是否关闭
-      ..maskType = EasyLoadingMaskType.black // 遮蔽层
-      ..toastPosition = EasyLoadingToastPosition.bottom; // Toast 出现的位置
-
-    return FutureBuilder<MyCache>(
+    return FutureBuilder(
       // 进行项目的预初始化
-      future: MyCache.preInit(),
-      builder: (BuildContext context, AsyncSnapshot<MyCache> snapshot) {
+      future: InitData.init(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
         // 定义 router
         var widget = snapshot.connectionState == ConnectionState.done
             ? Router(routerDelegate: _routerDelegate)
