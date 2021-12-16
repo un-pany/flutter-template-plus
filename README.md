@@ -25,8 +25,8 @@ Flutter 脚手架
 
 ## 开发环境
 
-1. Flutter version 2.5.3
-2. Dart version 2.14.4
+1. Flutter version 2.8.0
+2. Dart version 2.15.0
 3. Android SDK version 31.0.0
 
 ## Git 提交规范
