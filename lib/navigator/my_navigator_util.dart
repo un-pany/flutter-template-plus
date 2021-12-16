@@ -38,3 +38,28 @@ int getPageIndex(List<MaterialPage> pages, RouteStatus routeStatus) {
   }
   return -1;
 }
+
+/// 路由信息
+class RouteStatusInfo {
+  final RouteStatus routeStatus;
+  final Widget page;
+  RouteStatusInfo(this.routeStatus, this.page);
+}
+
+/// current 当前页面，pre 上次的页面
+typedef RouteChangeListener(RouteStatusInfo current, RouteStatusInfo? pre);
+
+/// 路由跳转方法的类型
+typedef OnJumpTo = void Function(RouteStatus routeStatus, {Map? args});
+
+/// 定义路由跳转逻辑要实现的功能
+class RouteJumpListener {
+  final OnJumpTo onJumpTo;
+  RouteJumpListener({required this.onJumpTo});
+}
+
+/// 抽象类供 MyNavigator 实现
+abstract class AbstractRouteJumpListener {
+  // routeStatus 代表要跳转的页面，args 代表要传递的值
+  void onJumpTo(RouteStatus routeStatus, {Map args});
+}

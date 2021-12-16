@@ -18,12 +18,12 @@ class _HomePageState extends State<HomePage> {
     // 切换路由时监听当前页面打开与离开
     MyNavigator.getInstance().addListener(listener = (current, pre) {
       if (widget == current.page || current.page is HomePage) {
-        print('打开了当前页面，即首页');
+        print('home_page:打开了当前页面，即首页');
       } else if (widget == pre?.page || pre?.page is HomePage) {
-        // 通过 NavigatorPage 的底部 Tab 切换回当前页面时，不会触发
-        // 这是因为 底部 Tab 切换时，重新构建了当前页，监听也随之被重新挂载
-        // 解决办法是: 可以将 NavigatorPage 页面的 body 修改为 PageView 来渲染，并且将当前页 KeepAlive
-        print('离开了当前页面，即首页');
+        // 通过 NavigatorPage 的底部 Tab 切换回当前页面时，不会触发，
+        // 这是因为 底部 Tab 切换时，重新构建了当前页，监听也随之被重新挂载，
+        // 解决办法可以是: 可以将 NavigatorPage 页面的 body 修改为 PageView 来渲染，并且将当前页 KeepAlive
+        print('home_page:离开了当前页面，即首页');
       }
     });
   }
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
-    // 记得 remove
+    // 记得销毁监听
     MyNavigator.getInstance().removeListener(listener!);
   }
 
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             MyNavigator.getInstance().onJumpTo(
               RouteStatus.detail,
-              args: {'id': 9999},
+              args: {'id': 9527},
             );
           },
         ),

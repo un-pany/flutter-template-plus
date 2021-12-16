@@ -2,32 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/navigator/my_navigator_util.dart';
 import 'package:flutter_template/pages/navigator_page.dart';
 
-/// 路由信息
-class RouteStatusInfo {
-  final RouteStatus routeStatus;
-  final Widget page;
-  RouteStatusInfo(this.routeStatus, this.page);
-}
-
-/// current 当前页面，pre 上次的页面
-typedef RouteChangeListener(RouteStatusInfo current, RouteStatusInfo? pre);
-
-typedef OnJumpTo = void Function(RouteStatus routeStatus, {Map? args});
-
-/// 抽象类供 MyNavigator 实现
-abstract class _RouteJumpListener {
-  // routeStatus 代表要跳转的页面，args 代表要传递的值
-  void onJumpTo(RouteStatus routeStatus, {Map args});
-}
-
-/// 定义路由跳转逻辑要实现的功能
-class RouteJumpListener {
-  final OnJumpTo onJumpTo;
-  RouteJumpListener({required this.onJumpTo});
-}
-
 /// 监听路由页面跳转，感知当前页面是否压后台
-class MyNavigator extends _RouteJumpListener {
+class MyNavigator extends AbstractRouteJumpListener {
   static MyNavigator? _instance;
 
   RouteJumpListener? _routeJump;
@@ -71,19 +47,20 @@ class MyNavigator extends _RouteJumpListener {
     _listeners.remove(listener);
   }
 
+  // 切换路由
   @override
   void onJumpTo(RouteStatus routeStatus, {Map? args}) {
     _routeJump?.onJumpTo(routeStatus, args: args);
   }
 
-  // 通知路由页面变化
-  // currentPages 当前页面堆栈
-  // prePages 变化前的页面堆栈
+  // 通知路由页面变化，currentPages 当前页面堆栈，prePages 变化前的页面堆栈
   void notify(List<MaterialPage> currentPages, List<MaterialPage> prePages) {
     // 如果没有变化，则不做处理，直接 return
     if (currentPages == prePages) return;
-    var current =
-        RouteStatusInfo(getStatus(currentPages.last), currentPages.last.child);
+    var current = RouteStatusInfo(
+      getStatus(currentPages.last),
+      currentPages.last.child,
+    );
     _notify(current);
   }
 
@@ -92,8 +69,8 @@ class MyNavigator extends _RouteJumpListener {
       // 如果打开的是导航页，则明确到导航页具体的 tab
       current = _bottomTab!;
     }
-    print('my_navigator:current:${current.page}');
-    print('my_navigator:pre:${_current?.page}');
+    print('my_navigator:当前页面:${current.page}');
+    print('my_navigator:上一个页面:${_current?.page}');
     _listeners.forEach((listener) {
       listener(current, _current);
     });

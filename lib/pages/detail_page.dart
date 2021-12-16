@@ -17,7 +17,7 @@ class _DetailPageState extends State<DetailPage> {
         title: Text('详情'),
       ),
       body: Center(
-        child: Text('传递过来的id数据:${widget.id}'),
+        child: Text('传递过来的id数据: ${widget.id}'),
       ),
     );
   }
