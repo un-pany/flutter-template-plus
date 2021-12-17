@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template/common/color.dart';
-import 'package:flutter_template/common/init_data.dart';
+import 'package:flutter_template/common/my_color.dart';
+import 'package:flutter_template/common/my_init.dart';
 import 'navigator/my_router_delegate.dart';
 
 void main() {
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       // 进行项目的预初始化
-      future: InitData.init(),
+      future: MyInit.init(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Widget widget = snapshot.connectionState == ConnectionState.done
             // 定义 Router（Navigator 2.0 的概念）
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
           title: 'flutter_template',
           theme: ThemeData(
             // 主题
-            primarySwatch: primaryColor,
+            primarySwatch: MyColor.primary,
           ),
           localizationsDelegates: [
             // 本地化的代理类

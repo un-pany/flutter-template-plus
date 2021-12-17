@@ -3,7 +3,7 @@ import 'package:flutter_template/db/my_cache.dart';
 
 /// 全局初始化数据
 
-class InitData {
+class MyInit {
   static Future<dynamic> init() async {
     // 预初始化 SharedPreferences
     await MyCache.preInit();

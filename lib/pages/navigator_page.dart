@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_template/navigator/my_navigator.dart';
 import 'package:flutter_template/pages/home_page.dart';
 import 'package:flutter_template/pages/me_page.dart';
-import 'package:flutter_template/common/color.dart';
+import 'package:flutter_template/common/my_color.dart';
 
 class NavigatorPage extends StatefulWidget {
   const NavigatorPage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
   // 默认的颜色
   final _defaultColor = Colors.grey;
   // 选中后的颜色
-  final _activeColor = primaryColor;
+  final _activeColor = MyColor.primary;
   // 当前索引
   int _currentIndex = 0;
   // 页面

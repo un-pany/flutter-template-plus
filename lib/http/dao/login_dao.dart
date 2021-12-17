@@ -1,4 +1,4 @@
-import 'package:flutter_template/common/constants.dart';
+import 'package:flutter_template/common/my_constants.dart';
 import 'package:flutter_template/db/my_cache.dart';
 import 'package:flutter_template/http/core/my_net.dart';
 import 'package:flutter_template/http/request/login_request.dart';
