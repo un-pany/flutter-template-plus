@@ -82,7 +82,7 @@ flutter build apk
 
 ## 开发工具
 
-1. 编辑器 Visual Studio Code
+1. 编辑器 Visual Studio Code
 2. 插件 Dart
 3. 插件 Flutter
 4. 插件 Flutter Widget Snippets

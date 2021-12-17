@@ -28,7 +28,7 @@ dev_dependencies:
 
 # flutter 相关的配置选项
 flutter:
-# 默认的 Material Design 字体图标
+  # 默认的 Material Design 字体图标
   uses-material-design: true
 
   # 静态资源

@@ -1,3 +1,4 @@
+import 'package:flutter_template/common/constants.dart';
 import 'package:flutter_template/http/dao/login_dao.dart';
 
 /// RESTful 请求
@@ -48,7 +49,7 @@ abstract class MyBaseRequest {
     var token = LoginDao.getToken();
     if (needLogin() && token != null) {
       // 给需要登录的接口携带登录令牌
-      addHeader(LoginDao.Token, token);
+      addHeader(Constants.token, token);
     }
     return uri.toString();
   }
