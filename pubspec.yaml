@@ -21,6 +21,8 @@ dependencies:
   dio: ^4.0.4
   # loading 遮盖层
   flutter_easyloading: ^3.0.3
+  # 状态管理
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:

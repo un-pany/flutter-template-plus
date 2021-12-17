@@ -3,6 +3,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_template/common/my_color.dart';
 import 'package:flutter_template/common/my_init.dart';
+import 'package:flutter_template/provider/my_provider.dart';
+import 'package:flutter_template/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'navigator/my_router_delegate.dart';
 
 void main() {
@@ -36,21 +39,36 @@ class _MyAppState extends State<MyApp> {
             // 初始化未完成时，显示 loading 动画
             : Scaffold(body: Center(child: CircularProgressIndicator()));
 
-        return MaterialApp(
-          title: 'flutter_template',
-          theme: ThemeData(
-            // 主题
-            primarySwatch: MyColor.primary,
+        return MultiProvider(
+          providers: topProviders,
+          // 这里通过 Consumer 读取数据，灵活度高
+          // 还有其他的读取方式，比如 context.read<ThemeProvider>()
+          child: Consumer<ThemeProvider>(
+            builder: (
+              BuildContext context,
+              ThemeProvider themeProvider,
+              Widget? child,
+            ) {
+              return MaterialApp(
+                title: 'flutter_template',
+                theme: themeProvider.getTheme(),
+                darkTheme: themeProvider.getTheme(isDarkMode: true),
+                themeMode: themeProvider.getThemeMode(),
+                localizationsDelegates: [
+                  // 本地化的代理类
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', 'US'), // 美国英语
+                  const Locale('zh', 'CH'), // 中文简体
+                ],
+                builder: EasyLoading.init(),
+                // 设置 Router
+                home: widget,
+              );
+            },
           ),
-          localizationsDelegates: [
-            // 本地化的代理类
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: [Locale('zh', 'CH')],
-          builder: EasyLoading.init(),
-          // 设置 Router
-          home: widget,
         );
       },
     );
