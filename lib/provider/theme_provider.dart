@@ -44,7 +44,7 @@ class ThemeProvider extends ChangeNotifier {
   // 设置主题模式
   void setThemeMode(ThemeMode themeMode) {
     MyCache.getInstance().setString(Constants.themeMode, themeMode.value);
-    // 主题改变后，需要通知所有订阅者
+    // 主题模式改变后，需要通知所有订阅者
     notifyListeners();
   }
 
