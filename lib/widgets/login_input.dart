@@ -38,11 +38,11 @@ class LoginInput extends StatelessWidget {
       obscureText: obscureText,
       // decoration 设置输入框的样式
       decoration: InputDecoration(
-        counterText: '', // 隐藏计数器
+        // 隐藏计数器
+        counterText: '',
         hintText: hintText,
         prefixIcon: prefixIcon,
-        // 背景颜色，结合 filled: true，才有效
-        fillColor: Colors.grey[200],
+        // 填充背景色
         filled: true,
         border: OutlineInputBorder(
           // 圆角形

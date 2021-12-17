@@ -25,19 +25,19 @@ class _MePageState extends State<MePage> {
           right: 35,
         ),
         children: [
-          ElevatedButton(
+          OutlinedButton(
             child: Text("亮色模式"),
             onPressed: () {
               context.read<ThemeProvider>().setThemeMode(ThemeMode.light);
             },
           ),
-          ElevatedButton(
+          OutlinedButton(
             child: Text("黑暗模式"),
             onPressed: () {
               context.read<ThemeProvider>().setThemeMode(ThemeMode.dark);
             },
           ),
-          ElevatedButton(
+          OutlinedButton(
             child: Text("跟随系统"),
             onPressed: () {
               context.read<ThemeProvider>().setThemeMode(ThemeMode.system);

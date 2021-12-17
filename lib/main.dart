@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template/common/my_color.dart';
 import 'package:flutter_template/common/my_init.dart';
 import 'package:flutter_template/provider/my_provider.dart';
 import 'package:flutter_template/provider/theme_provider.dart';
