@@ -18,7 +18,7 @@ dependencies:
   # 数据持久化
   shared_preferences: ^2.0.11
   # http
-  dio: ^4.0.4
+  dio: ^4.0.5-beta1
   # loading 遮盖层
   flutter_easyloading: ^3.0.3
   # 状态管理
