@@ -45,8 +45,8 @@ class MyNet {
 
     // http 状态码
     int? statusCode = response?.statusCode;
-    // 业务状态码
-    int? code = response?.data?.code;
+    // 业务状态码（这要求后端接口严格按着统一的格式返回，这里要求必须返回业务 code）
+    int? code = result != null ? result['code'] : null;
     // http 状态码拦截器
     return statusCodeInterceptor(statusCode, code, result);
   }
