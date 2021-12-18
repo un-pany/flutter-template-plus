@@ -46,7 +46,7 @@ class MyNet {
     // http 状态码
     int? statusCode = response?.statusCode;
     // 业务状态码
-    int? code = response?.data['code'];
+    int? code = response?.data?.code;
     // http 状态码拦截器
     return statusCodeInterceptor(statusCode, code, result);
   }
@@ -78,8 +78,10 @@ class MyNet {
         // 调起登录页
         MyNavigator.getInstance().onJumpTo(RouteStatus.login);
         throw NeedAuth(result.toString(), data: result);
+      case null:
+        throw MyNetError(-1, '网络异常', data: result);
       default:
-        throw MyNetError(statusCode ?? -200, result.toString(), data: result);
+        throw MyNetError(statusCode ?? -1, result.toString(), data: result);
     }
   }
 
@@ -90,7 +92,7 @@ class MyNet {
       case 20000:
         return result;
       default:
-        throw MyNetError(code ?? -20000, result.toString(), data: result);
+        throw MyNetError(code ?? -1, result.toString(), data: result);
     }
   }
 
