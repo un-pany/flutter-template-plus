@@ -2,6 +2,18 @@
 
 一个 APP 项目通用模板，提供 HTTP、路由、本地缓存等常用功能的一方库
 
+## plus & mini
+
+[plus 版](https://github.com/un-pany/flutter-template-plus)
+[mini 版](https://github.com/un-pany/flutter-template-mini)
+
+## ❓ 关于 flutter_template_plus 和 flutter_template_mini
+
+1. mini 版的路由部分采用 Navigator 1.0，简单易懂好上手，而 plus 版则采用更加强大，但难以理解的 Navigator 2.0
+2. mini 版的 HTTP 层直接基于 Dio 进行封装，代码结构清晰简单，而 plus 版则书写一方库 MyNet，通过适配器集成 Dio，更加灵活、可插拔
+3. mini 版的 db 层直接基于 shared_preferences 进行封装，而 plus 版则基于 shared_preferences 书写一方库 MyCache
+4. mini 版的封装方式更贴近前端项目，而 plus 版则更加**面向对象**
+
 ## 功能
 
 ```text
@@ -109,7 +121,7 @@ flutter build apk
 ## ❓ 关于 JSON 转 Dart Model 类
 
 1. 纯手写实体类（不推荐）
-2. 用网页自动生成工具: 根据 JSON 自动生成实体类，并 copy 到项目中（所有项目都通用）
+2. **用网页自动生成工具: 根据 JSON 自动生成实体类，并 copy 到项目中（所有项目都通用）**
 3. 使用插件 json_serializable（更适合大型项目）
 
 **该脚手架采用第二种方案**
@@ -119,7 +131,7 @@ flutter build apk
 ## ❓ 关于路由
 
 1. 官方的 Navigator 1.0
-2. 官方的 Navigator 2.0 （Flutter 1.22 推出）
+2. **官方的 Navigator 2.0 （Flutter 1.22 推出）**
 3. 三方插件 fluro
 
 **该脚手架采用第二种方案，并对其封装**
