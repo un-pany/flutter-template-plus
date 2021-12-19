@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_template/http/dao/login_dao.dart';
-import 'package:flutter_template/navigator/my_navigator_util.dart';
-import 'package:flutter_template/pages/navigator_page.dart';
-import 'package:flutter_template/navigator/my_navigator.dart';
-import 'package:flutter_template/pages/detail_page.dart';
-import 'package:flutter_template/pages/login_page.dart';
+import 'package:flutter_template_plus/http/dao/login_dao.dart';
+import 'package:flutter_template_plus/navigator/my_navigator_util.dart';
+import 'package:flutter_template_plus/pages/navigator_page.dart';
+import 'package:flutter_template_plus/navigator/my_navigator.dart';
+import 'package:flutter_template_plus/pages/detail_page.dart';
+import 'package:flutter_template_plus/pages/login_page.dart';
 
 /// 路由代理
 class MyRouterDelegate extends RouterDelegate<dynamic>

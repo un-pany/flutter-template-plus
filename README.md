@@ -32,7 +32,7 @@
 ## 目录结构
 
 ```
-# flutter_template
+# flutter_template_plus
 ├─ assets             # 静态资源
 │  ├─ icons           # 字体图标
 │  ├─ images          # 图片

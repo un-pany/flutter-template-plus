@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/navigator/my_navigator_util.dart';
-import 'package:flutter_template/pages/navigator_page.dart';
+import 'package:flutter_template_plus/navigator/my_navigator_util.dart';
+import 'package:flutter_template_plus/pages/navigator_page.dart';
 
 /// 监听路由页面跳转，感知当前页面是否压后台
 class MyNavigator extends AbstractRouteJumpListener {

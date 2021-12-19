@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_template/http/core/my_base_request.dart';
+import 'package:flutter_template_plus/http/core/my_base_request.dart';
 
 /// 网络请求抽象类
 abstract class MyNetAdapter {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_template/navigator/my_navigator.dart';
-import 'package:flutter_template/pages/home_page.dart';
-import 'package:flutter_template/pages/me_page.dart';
-import 'package:flutter_template/common/my_color.dart';
+import 'package:flutter_template_plus/navigator/my_navigator.dart';
+import 'package:flutter_template_plus/pages/home_page.dart';
+import 'package:flutter_template_plus/pages/me_page.dart';
+import 'package:flutter_template_plus/common/my_color.dart';
 
 class NavigatorPage extends StatefulWidget {
   const NavigatorPage({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_template/common/my_init.dart';
-import 'package:flutter_template/provider/my_provider.dart';
-import 'package:flutter_template/provider/theme_provider.dart';
+import 'package:flutter_template_plus/common/my_init.dart';
+import 'package:flutter_template_plus/provider/my_provider.dart';
+import 'package:flutter_template_plus/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'navigator/my_router_delegate.dart';
 
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
               Widget? child,
             ) {
               return MaterialApp(
-                title: 'flutter_template',
+                title: 'flutter_template_plus',
                 theme: themeProvider.getTheme(),
                 darkTheme: themeProvider.getTheme(isDarkMode: true),
                 themeMode: themeProvider.getThemeMode(),

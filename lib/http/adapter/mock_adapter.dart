@@ -1,5 +1,5 @@
-import 'package:flutter_template/http/core/my_net_adapter.dart';
-import 'package:flutter_template/http/core/my_base_request.dart';
+import 'package:flutter_template_plus/http/core/my_net_adapter.dart';
+import 'package:flutter_template_plus/http/core/my_base_request.dart';
 
 /// 测试适配器，mock 数据
 /// 在没有后端接口时，可用该适配器模拟测试整个发送 http 流程

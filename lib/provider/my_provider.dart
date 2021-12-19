@@ -1,4 +1,4 @@
-import 'package:flutter_template/provider/theme_provider.dart';
+import 'package:flutter_template_plus/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

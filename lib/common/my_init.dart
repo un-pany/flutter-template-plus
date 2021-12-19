@@ -1,5 +1,5 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_template/db/my_cache.dart';
+import 'package:flutter_template_plus/db/my_cache.dart';
 
 /// 全局初始化数据
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/http/dao/login_dao.dart';
-import 'package:flutter_template/navigator/my_navigator.dart';
-import 'package:flutter_template/navigator/my_navigator_util.dart';
-import 'package:flutter_template/provider/theme_provider.dart';
+import 'package:flutter_template_plus/http/dao/login_dao.dart';
+import 'package:flutter_template_plus/navigator/my_navigator.dart';
+import 'package:flutter_template_plus/navigator/my_navigator_util.dart';
+import 'package:flutter_template_plus/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class MePage extends StatefulWidget {

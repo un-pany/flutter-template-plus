@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_template/common/my_color.dart';
-import 'package:flutter_template/common/my_constants.dart';
-import 'package:flutter_template/db/my_cache.dart';
+import 'package:flutter_template_plus/common/my_color.dart';
+import 'package:flutter_template_plus/common/my_constants.dart';
+import 'package:flutter_template_plus/db/my_cache.dart';
 
 /// 扩展 ThemeMode
 extension ThemeModeExtension on ThemeMode {
