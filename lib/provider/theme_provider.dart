@@ -59,8 +59,8 @@ class ThemeProvider extends ChangeNotifier {
       brightness: isDarkMode ? Brightness.dark : Brightness.light,
       // 错误状态颜色（如输入框错误提示文字）
       errorColor: isDarkMode ? MyColor.dark_red : MyColor.light_red,
-      // 文字强调色（前景色）
-      // accentColor: isDarkMode ? MyColor.primary[50] : MyColor.white,
+      // 文字强调色（前景色，也决定 ListView 的默认阴影颜色）
+      accentColor: isDarkMode ? MyColor.white : MyColor.primary,
       // Tab 指示器的颜色
       // indicatorColor: isDarkMode ? MyColor.primary[50] : MyColor.white,
       // 页面背景色

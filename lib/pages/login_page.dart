@@ -24,10 +24,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       // ListView 可以自适应键盘，防止键盘弹起后遮挡
       body: ListView(
         padding: EdgeInsets.only(
+          top: 70,
           left: 35,
           right: 35,
         ),
