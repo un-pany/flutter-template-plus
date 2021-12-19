@@ -4,10 +4,10 @@
 
 ## 效果图
 
-![login_light.png](https://github.com/un-pany/flutter-template-plus/tree/main/assets/images/docs/login_light.png)
-![login_dark.png](https://github.com/un-pany/flutter-template-plus/tree/main/assets/images/docs/login_dark.png)
+![login_light.png](https://github.com/un-pany/flutter-template-plus/tree/main/assets/images/docs/login_light.jpg)
+![login_dark.png](https://github.com/un-pany/flutter-template-plus/tree/main/assets/images/docs/login_dark.jpg)
 
-## 关于版本
+## 版本
 
 [plus](https://github.com/un-pany/flutter-template-plus) | [mini](https://github.com/un-pany/flutter-template-mini)
 
