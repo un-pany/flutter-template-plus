@@ -4,8 +4,8 @@
 
 ## 效果图
 
-![login_light.png](https://github.com/un-pany/flutter-template-plus/tree/main/assets/images/docs/login_light.jpg)
-![login_dark.png](https://github.com/un-pany/flutter-template-plus/tree/main/assets/images/docs/login_dark.jpg)
+![login_light.jpg](assets/images/docs/login_light.jpg)
+![login_dark.jpg](assets/images/docs/login_dark.jpg)
 
 ## 版本
 
