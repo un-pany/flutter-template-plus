@@ -11,13 +11,6 @@
 
 [plus](https://github.com/un-pany/flutter-template-plus) | [mini](https://github.com/un-pany/flutter-template-mini)
 
-## ❓ 关于 flutter_template_plus 和 flutter_template_mini
-
-1. mini 版的路由采用 Navigator 1.0，逻辑简单易懂，而 plus 版则采用更加强大，但难以理解的 Navigator 2.0
-2. mini 版的 HTTP 层直接基于 Dio 进行封装，代码结构清晰简单，而 plus 版则书写一方库 MyNet，通过适配器集成 Dio，更加灵活、可插拔
-3. mini 版的 db 层直接基于 shared_preferences 进行封装，而 plus 版则基于 shared_preferences 书写一方库 MyCache
-4. mini 版的封装方式更贴近现代前端工程，而 plus 版则更加**面向对象**
-
 ## 功能
 
 ```text
@@ -141,6 +134,18 @@ flutter build apk
 **该脚手架采用第二种方案，并对其封装**
 
 *Navigator 2.0 的概念有一定的难度*
+
+## ❓ 关于 flutter_template_plus 和 flutter_template_mini
+
+1. mini 版的路由采用 Navigator 1.0，逻辑简单易懂，而 plus 版则采用更加强大，但难以理解的 Navigator 2.0
+2. mini 版的 HTTP 层直接基于 Dio 进行封装，代码结构清晰简单，而 plus 版则书写一方库 MyNet，通过适配器集成 Dio，更加灵活、可插拔
+3. mini 版的 db 层直接基于 shared_preferences 进行封装，而 plus 版则基于 shared_preferences 书写一方库 MyCache
+4. mini 版的封装方式更贴近现代前端工程，而 plus 版则更加**面向对象**
+
+## 📚 入门 Flutter 系列文章
+
+1. [Flutter 从 0 到 1](https://juejin.cn/column/6995160230476644366)
+2. [移动端学习小记](https://juejin.cn/column/6991310785871872007)
 
 ## 📄 License
 
