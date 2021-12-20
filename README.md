@@ -57,6 +57,7 @@
 │  ├─ models          # model 层
 │  ├─ navigator       # Navigator 2.0
 │  ├─ pages           # 所有页面
+│  ├─ provider        # 状态管理
 │  ├─ utils           # 工具类
 ├─ └─ main.dart       # 入口
 └─ pubspec.yaml       # 包管理
@@ -132,6 +133,8 @@ flutter build apk
 3. 三方插件 fluro
 
 **该脚手架采用第二种方案，并对其封装**
+
+这里随便提供一个自动生成的网址：[json_to_dart](https://javiercbk.github.io/json_to_dart/)
 
 *Navigator 2.0 的概念有一定的难度*
 
