@@ -126,6 +126,8 @@ flutter build apk
 
 *JSON <——> Map <——> Dart Model 三者之间的转化是常用的技巧*
 
+这里随便提供一个自动生成的网址：[json_to_dart](https://javiercbk.github.io/json_to_dart/)
+
 ## ❓ 关于路由
 
 1. 官方的 Navigator 1.0
@@ -133,8 +135,6 @@ flutter build apk
 3. 三方插件 fluro
 
 **该脚手架采用第二种方案，并对其封装**
-
-这里随便提供一个自动生成的网址：[json_to_dart](https://javiercbk.github.io/json_to_dart/)
 
 *Navigator 2.0 的概念有一定的难度*
 
