@@ -124,9 +124,9 @@ flutter build apk
 
 **该脚手架采用第二种方案**
 
-*JSON <——> Map <——> Dart Model 三者之间的转化是常用的技巧*
-
 这里随便提供一个自动生成的网址：[json_to_dart](https://javiercbk.github.io/json_to_dart/)
+
+*JSON <——> Map <——> Dart Model 三者之间的转化是常用的技巧*
 
 ## ❓ 关于路由
 
