@@ -7,10 +7,6 @@
 ![login_light.jpg](assets/images/docs/login_light.jpg)
 ![login_dark.jpg](assets/images/docs/login_dark.jpg)
 
-## 版本
-
-[plus](https://github.com/un-pany/flutter-template-plus) | [mini](https://github.com/un-pany/flutter-template-mini)
-
 ## 功能
 
 ```text
@@ -138,12 +134,19 @@ flutter build apk
 
 *Navigator 2.0 的概念有一定的难度*
 
-## ❓ 关于 flutter_template_plus 和 flutter_template_mini
+## ❓ 关于 flutter_template_plus 和 flutter_template_mini 和 flutter-bruno-getx
 
 1. mini 版的路由采用 Navigator 1.0，逻辑简单易懂，而 plus 版则采用更加强大，但难以理解的 Navigator 2.0
 2. mini 版的 HTTP 层直接基于 Dio 进行封装，代码结构清晰简单，而 plus 版则书写一方库 MyNet，通过适配器集成 Dio，更加灵活、可插拔
 3. mini 版的 db 层直接基于 shared_preferences 进行封装，而 plus 版则基于 shared_preferences 书写一方库 MyCache
-4. mini 版的封装方式更贴近现代前端工程，而 plus 版则更加**面向对象**
+4. mini 版的封装方式更贴近现代**前端工程**，而 plus 版则更加**面向对象**
+5. flutter-bruno-getx 则完全基于 mini 版，并采用了最新的 SDK、Bruno UI 框架、GetX 状态管理器
+
+## 不同版本
+
+1. [flutter_template_plus](https://github.com/un-pany/flutter-template-plus)
+2. [flutter_template_mini](https://github.com/un-pany/flutter-template-mini)
+3. [flutter-bruno-getx](https://github.com/un-pany/flutter-bruno-getx)
 
 ## 📚 入门 Flutter 系列文章
 
